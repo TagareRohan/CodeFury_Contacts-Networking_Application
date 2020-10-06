@@ -25,6 +25,7 @@ public class Person {
 	private String company;
 	private byte[] image;
 	
+	
 	/**
 	 * 
 	 */
@@ -232,7 +233,7 @@ public class Person {
 	public String toString() {
 		return "Person [fullName=" + fullName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", gender="
 				+ gender + ", dateOfBirth=" + dateOfBirth + ", Address=" + address + ", city=" + city + ", State="
-				+ state + ", country=" + country + ", company=" + company + ", image=" + Arrays.toString(image) + "]";
+				+ state + ", country=" + country + ", company=" + company +"]";
 	}
 	
 	

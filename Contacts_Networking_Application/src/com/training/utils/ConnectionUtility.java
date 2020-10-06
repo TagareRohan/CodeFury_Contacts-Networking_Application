@@ -25,7 +25,7 @@ public class ConnectionUtility {
 				e.printStackTrace();
 			}
 			
-			String derbyURL = "jdbc:derby:SampleDB;create=true";
+			String derbyURL = "jdbc:derby:NetworkDB;create=false";
 			
 			derbyConnection = DriverManager.getConnection(derbyURL);
 			

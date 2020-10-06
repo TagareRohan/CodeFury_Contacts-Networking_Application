@@ -25,7 +25,7 @@ public class AdminServiceImpl implements AdminServices{
 		
 		for(User user:userList)
 		{
-			if(user.getUserName().equals(userName))
+			if(user.getUsername().equals(userName))
 			{
 				return user.getFullName();
 			}

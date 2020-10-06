@@ -1,0 +1,19 @@
+----------------------------------------------------------------
+Wed Oct 07 00:26:52 IST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0174-ff46-00a0-000006e5fb80 
+on database directory D:\HSBC\CodeFury\CodeFury_Contacts-Networking_Application\Contacts_Networking_Application\NetworkDB with class loader sun.misc.Launcher$AppClassLoader@5e481248 
+Loaded from file:/D:/Softwares/db-derby-10.14.2.0-bin/db-derby-10.14.2.0-bin/lib/derby.jar
+java.vendor=AdoptOpenJDK
+java.runtime.version=1.8.0_262-b10
+user.dir=D:\HSBC\CodeFury\CodeFury_Contacts-Networking_Application\Contacts_Networking_Application
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Wed Oct 07 00:27:18 IST 2020: Shutting down Derby engine
+----------------------------------------------------------------
+Wed Oct 07 00:27:19 IST 2020:
+Shutting down instance a816c00e-0174-ff46-00a0-000006e5fb80 on database directory D:\HSBC\CodeFury\CodeFury_Contacts-Networking_Application\Contacts_Networking_Application\NetworkDB with class loader sun.misc.Launcher$AppClassLoader@5e481248 
+----------------------------------------------------------------
