@@ -1,6 +1,7 @@
 package com.training.servlets;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.training.dao.UserServiceImpl;
+import com.training.dao.Verification;
 import com.training.models.User;
 
 /**
@@ -20,6 +22,7 @@ public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	RequestDispatcher dispatcher=null;
 	UserServiceImpl service;
+	Verification verify;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,7 +37,7 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -49,11 +52,10 @@ public class UserServlet extends HttpServlet {
 		{
 			String userName=request.getParameter("userName");
 			String password=request.getParameter("password");
-			if(userName.equals(password))
+			if(verify.verifyUser(userName, password))
 			{
-				String fullName=service.findUser(userName);
 				
-				request.setAttribute("fullName", fullName);
+				request.setAttribute("userName", userName);
 				dispatcher=request.getRequestDispatcher("userHome.jsp");
 				dispatcher.forward(request, response);
 			}
@@ -63,8 +65,16 @@ public class UserServlet extends HttpServlet {
 			String userName=request.getParameter("userName");
 			String fullName=request.getParameter("fullName");
 			
-			service.addUser(new User(0,fullName,userName,"female"));
-			request.setAttribute("fullName", fullName);
+			/*
+			 * ....
+			 *  ....
+			 *  
+			 *  set other fields as well
+			 */
+			
+			verify.registerUser();
+			
+			request.setAttribute("userName", userName);
 			
 			dispatcher=request.getRequestDispatcher("userHome.jsp");
 			dispatcher.forward(request, response);

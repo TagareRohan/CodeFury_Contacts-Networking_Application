@@ -42,9 +42,9 @@ public class NavigationServlet extends HttpServlet {
 		
 		String input=request.getParameter("submit");
 		
-		if(input.equals("userLogin"))
+		if(input.equals("adminLogin"))
 		{
-			dispatcher=request.getRequestDispatcher("userLogin.jsp");
+			dispatcher=request.getRequestDispatcher("adminLogin.jsp");
 		}
 		else if(input.equals("userSignup"))
 		{
