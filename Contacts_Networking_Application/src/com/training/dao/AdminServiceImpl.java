@@ -9,34 +9,30 @@ import com.training.utils.ConnectionUtility;
 
 public class AdminServiceImpl implements AdminServices{
 
-	List<User> userList;
+	Map<String,String> userList;
 	Connection derbyConnection;
 	
 	public AdminServiceImpl() {
 		super();
 		// TODO Auto-generated constructor stub
-		userList=new ArrayList<>();
+		userList=new HashMap<>();
 		this.derbyConnection=ConnectionUtility.getDerbyConnection();
 	}
 
 	@Override
-	public String findUser(String userName) {
+	public Map<String,String> searchUser(String userName) {
 		// TODO Auto-generated method stub
 		
-		for(User user:userList)
-		{
-			if(user.getUserName().equals(userName))
-			{
-				return user.getFullName();
-			}
-		}
+		
 		
 		return null;
 	}
 
 	@Override
-	public boolean deactivateUser(String userName) {
+	public boolean deleteUser(String userName) {
 		// TODO Auto-generated method stub
+		
+		
 		return false;
 	}
 
@@ -47,9 +43,17 @@ public class AdminServiceImpl implements AdminServices{
 	}
 
 	@Override
-	public boolean addUser(User user) {
+	public Map<String, String> viewUsersToDisable() {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
+
+	@Override
+	public Map<String, String> viewUsersToDelete() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 }

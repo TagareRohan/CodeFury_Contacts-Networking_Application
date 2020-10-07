@@ -2,8 +2,11 @@ package com.training.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.training.ifaces.UserServices;
+import com.training.models.Contact;
+import com.training.models.Friend;
 import com.training.models.User;
 
 public class UserServiceImpl implements UserServices {
@@ -17,29 +20,28 @@ public class UserServiceImpl implements UserServices {
 	}
 
 	@Override
-	public boolean addUser(User user)
-	{
-		if(userList.add(user))
-		{
-			return true;
-		}
-		
+	public boolean addNewContact(String userName) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public String findUser(String userName) {
+	public Map<String, String> searchUser(String userName) {
 		// TODO Auto-generated method stub
-		
-		for(User user:userList)
-		{
-			if(user.getUserName().equals(userName))
-			{
-				return user.getFullName();
-			}
-		}
-		
-		
 		return null;
 	}
+
+	@Override
+	public List<Friend> viewFriendList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Contact> viewContactList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }

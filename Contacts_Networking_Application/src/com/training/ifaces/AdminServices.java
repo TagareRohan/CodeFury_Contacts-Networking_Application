@@ -1,12 +1,16 @@
 package com.training.ifaces;
 
+import java.util.*;
+
 import com.training.models.User;
 
 public interface AdminServices {
 
-	public String findUser(String userName);
-	public boolean deactivateUser(String userName);
+	public Map<String,String> searchUser(String userName);
+	public boolean deleteUser(String userName);
 	public boolean disableUser(String userName);
-	public boolean addUser(User user);
+	public Map<String,String> viewUsersToDisable();
+	public Map<String,String> viewUsersToDelete();
+	
 	
 }
