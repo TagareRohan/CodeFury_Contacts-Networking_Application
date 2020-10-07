@@ -85,9 +85,51 @@ public class UserServiceImpl implements UserDAO {
 	}
 
 	@Override
-	public String findUser(String userName) {
+	public User findUser(String userName) {
 		// TODO Auto-generated method stub
-		return null;
+		String sql = "select * from users where username=?";
+		
+		PreparedStatement pstmt = null;
+		
+		User user = null;
+		
+		try {
+			pstmt = this.derbyConnection.prepareStatement(sql);
+			
+			pstmt.setString(1, userName);
+			ResultSet result = pstmt.executeQuery();
+			//System.out.println(result);
+			result.next();
+			
+			long id=(long)result.getInt("id");
+			String fullName = result.getString("fullName");
+			String email=result.getString("email");
+			long phoneNumber=result.getLong("phoneNumber");
+			String gender=result.getString("gender");
+			LocalDate dateOfBirth=result.getDate("dateOfBirth").toLocalDate();
+			String address=result.getString("address");
+			String city=result.getString("city");
+			String state=result.getString("state");
+			String country=result.getString("country");
+			String company=result.getString("company");
+			Blob image=result.getBlob("image");
+			String username=result.getString("username");
+			
+			byte barr[]=image.getBytes(1,(int)image.length());//1 means first image
+			
+			user=new User(fullName, email, phoneNumber, gender, dateOfBirth, 
+					address, city, state, country, company, barr, username,id);
+			
+			return user;
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			
+		}
+		return user;
 	}
 
 	@Override
@@ -136,6 +178,7 @@ public class UserServiceImpl implements UserDAO {
 			
 			while(result.next()) {
 			
+				long id=(long)result.getInt("id");
 				String fullName = result.getString("fullName");
 				String email=result.getString("email");
 				long phoneNumber=result.getLong("phoneNumber");
@@ -149,16 +192,16 @@ public class UserServiceImpl implements UserDAO {
 				Blob image=result.getBlob("image");
 				String username=result.getString("username");
 				
-				System.out.println("Name : "+fullName);
+				
 				byte barr[]=image.getBytes(1,(int)image.length());//1 means first image  
 	              
-				FileOutputStream fout=new FileOutputStream("D:\\HSBC\\CodeFury\\CodeFury_Contacts-Networking_Application\\Contacts_Networking_Application\\sonoo.jpg");  
-				fout.write(barr);  
+				//FileOutputStream fout=new FileOutputStream("D:\\HSBC\\CodeFury\\CodeFury_Contacts-Networking_Application\\Contacts_Networking_Application\\sonoo.jpg");  
+				//fout.write(barr);  
 				              
-				fout.close();  
+				//fout.close();  
 				
 				User user=new User(fullName, email, phoneNumber, gender, dateOfBirth, 
-									address, city, state, country, company, barr, username);
+									address, city, state, country, company, barr, username,id);
 				
 				
 				this.userList.add(user);
@@ -175,5 +218,134 @@ public class UserServiceImpl implements UserDAO {
 	public TreeSet<Person> viewBlockedUsers() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean sendRequest(long userId1, long userId2) {
+		// TODO Auto-generated method stub
+		String sql = "insert into relationship "
+				+ "values(?,?,?,?)";
+
+		PreparedStatement pstmt = null;
+		
+	
+		int rowUpdated = 0;
+
+		try {
+			pstmt = this.derbyConnection.prepareStatement(sql);
+	
+			//pstmt.setInt(1,0);
+			
+			
+			pstmt.setInt(1, (int)userId1);
+			pstmt.setInt(2, (int)userId2);
+			pstmt.setInt(3, 0);
+			pstmt.setInt(4, (int)userId1);
+			rowUpdated = pstmt.executeUpdate();
+	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+	
+		}
+
+		return rowUpdated==1 ? true:false;
+		
+	}
+
+	@Override
+	public boolean acceptRequest(long userId1, long userId2) {
+		// TODO Auto-generated method stub
+		String sql = "update relationship set status=?, actionId=? where userId1=? and userId2=?";
+
+		PreparedStatement pstmt = null;
+		int rowUpdated = 0;
+
+		try {
+			pstmt = this.derbyConnection.prepareStatement(sql);
+	
+			//pstmt.setInt(1,0);
+			
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, (int)userId2);
+			pstmt.setInt(3, (int)userId1);
+			pstmt.setInt(4, (int)userId2);
+			
+			
+			rowUpdated = pstmt.executeUpdate();
+	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+	
+		}
+
+		return rowUpdated==1 ? true:false;
+	}
+
+	@Override
+	public boolean declineRequest(long userId1, long userId2) {
+		// TODO Auto-generated method stub
+		String sql = "update relationship set status=?, actionId=? where userId1=? and userId2=?";
+
+		PreparedStatement pstmt = null;
+		int rowUpdated = 0;
+
+		try {
+			pstmt = this.derbyConnection.prepareStatement(sql);
+	
+			//pstmt.setInt(1,0);
+			
+			pstmt.setInt(1, 2);
+			pstmt.setInt(2, (int)userId2);
+			pstmt.setInt(3, (int)userId1);
+			pstmt.setInt(4, (int)userId2);
+			
+			
+			rowUpdated = pstmt.executeUpdate();
+	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+	
+		}
+
+		return rowUpdated==1 ? true:false;
+		
+	}
+
+	@Override
+	public boolean blockUser(long userId1, long userId2) {
+		// TODO Auto-generated method stub
+		String sql = "update relationship set status=?, actionId=? where userId1=? and userId2=?";
+
+		PreparedStatement pstmt = null;
+		int rowUpdated = 0;
+
+		try {
+			pstmt = this.derbyConnection.prepareStatement(sql);
+	
+			//pstmt.setInt(1,0);
+			
+			pstmt.setInt(1, 3);
+			pstmt.setInt(2, (int)userId2);
+			pstmt.setInt(3, (int)userId1);
+			pstmt.setInt(4, (int)userId2);
+			
+			
+			rowUpdated = pstmt.executeUpdate();
+	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+	
+		}
+
+		return rowUpdated==1 ? true:false;
+		
 	}
 }

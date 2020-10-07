@@ -1,12 +1,14 @@
 package com.training.ifaces;
 
+import java.util.ArrayList;
+
 import com.training.models.User;
 
 public interface AdminServices {
 
-	public String findUser(String userName);
-	public boolean deactivateUser(String userName);
-	public boolean disableUser(String userName);
-	public boolean addUser(User user);
+	public ArrayList<User> showAllUsers();
+	public boolean enableUser(long id);
+	public boolean disableUser(long id);
+	public boolean deleteUser(User user);
 	
 }

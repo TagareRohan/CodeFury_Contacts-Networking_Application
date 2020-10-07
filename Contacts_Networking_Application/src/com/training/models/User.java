@@ -10,6 +10,9 @@ import java.util.Objects;
  */
 public class User extends Person {
 
+	private long id;
+	
+
 	private String username;
 	private String password;
 	private int deactivated;
@@ -59,9 +62,26 @@ public class User extends Person {
 	
 
 	public User(String fullName, String email, long phoneNumber, String gender, LocalDate dateOfBirth, String address,
-			String city, String state, String country, String company, byte[] image, String username) {
+			String city, String state, String country, String company, byte[] image, String username,long id) {
 		super(fullName, email, phoneNumber, gender, dateOfBirth, address, city, state, country, company, image);
 		this.username = username;
+		this.id=id;
+	}
+	
+	
+
+	/**
+	 * @return the id
+	 */
+	public long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	/**
@@ -144,9 +164,11 @@ public class User extends Person {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", deactivated=" + deactivated + ", disabled="
-				+ disabled + ", toString()=" + super.toString() + "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", deactivated=" + deactivated
+				+ ", disabled=" + disabled + super.toString()+"]";
 	}
+
+	
 
 	
 	

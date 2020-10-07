@@ -13,13 +13,23 @@ public class Application {
 		// TODO Auto-generated method stub
 		//ConnectionUtility.getDerbyConnection();
 		UserServiceImpl userService=new UserServiceImpl();
-		User batman=new User("Bruce Wayne", "bruce@abc.com",3333333333l, "Male", LocalDate.parse("2020-01-08"), 
-								"Somewhere in Gotham", "Gotham", "Nebraska", "US", "Wayne Enterprises", null, 
-								"batman", "batman123");
-		userService.addUser(batman);
+//		User batman=new User("Diana Prince", "diana@abc.com",3333333333l, "Female", LocalDate.parse("2020-01-08"), 
+//								"Somewhere in Amazon", "Amazon", "Nebraska", "US", "Justice League", null, 
+//								"wonderwoman", "diana123");
+//		userService.addUser(batman);
+		
 		ArrayList<User> userList=new ArrayList<User>();
 		userList=userService.searchUsers();
-		System.out.println(userList);
+		
+		userList.forEach(System.out::println);
+		//System.out.println(userList);
+		//User bats=userService.findUser("batman");
+		System.out.println(userService.acceptRequest(1, 201));
+		System.out.println(userService.declineRequest(201, 301));
+		System.out.println(userService.acceptRequest(201, 302));
+		System.out.println(userService.blockUser(201, 303));
+		System.out.println(userService.acceptRequest(1, 306));
+		//System.out.println(bats);
 	}
 
 }
