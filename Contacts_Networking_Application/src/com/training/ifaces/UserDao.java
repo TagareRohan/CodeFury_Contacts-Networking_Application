@@ -18,8 +18,8 @@ public interface UserDao {
 	boolean registerUser(User user);
 	boolean loginUser(String username, String password);
 	boolean addContact(Person user, Contact contact);
-	Collection<Contact> viewContacts();
-	Collection<Person> viewFriends();
+	Collection<Contact> viewContacts(Person user);
+	Collection<Person> viewFriends(Person user);
 	Collection<Person> searchUsers(String nameEmail);
 	Collection<Person> viewBlockedUsers();
 	boolean sendRequest(Person user1, Person user2);
