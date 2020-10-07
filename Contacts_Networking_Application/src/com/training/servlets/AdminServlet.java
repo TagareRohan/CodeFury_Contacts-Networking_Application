@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.training.dao.AdminServiceImpl;
+import com.training.daos.AdminDaoImpl;
+
+
 
 /**
  * Servlet implementation class AdminServlet
@@ -17,15 +19,15 @@ import com.training.dao.AdminServiceImpl;
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	AdminServiceImpl service;
-	RequestDispatcher dispatcher;
+	AdminDaoImpl service = null;
+	RequestDispatcher dispatcher = null;
 
     /**
      * Default constructor. 
      */
     public AdminServlet() {
         // TODO Auto-generated constructor stub
-    	service=new AdminServiceImpl();
+    	this.service=new AdminDaoImpl();
     }
 
 	/**
@@ -42,19 +44,19 @@ public class AdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		if(request.getParameter("submit").equals("adminLogin"))
-		{
-			String adminUserName=request.getParameter("adminUserName");
-			String password=request.getParameter("password");
-			if(adminUserName.equals(password))
-			{
-				String fullName=service.findUser(adminUserName);
-				
-				request.setAttribute("fullName", fullName);
-				dispatcher=request.getRequestDispatcher("adminHome.jsp");
-				dispatcher.forward(request, response);
-			}
-		}
+//		if(request.getParameter("submit").equals("adminLogin"))
+//		{
+//			String adminUserName=request.getParameter("adminUserName");
+//			String password=request.getParameter("password");
+//			if(adminUserName.equals(password))
+//			{
+//				String fullName=service.findUser(adminUserName);
+//				
+//				request.setAttribute("fullName", fullName);
+//				dispatcher=request.getRequestDispatcher("adminHome.jsp");
+//				dispatcher.forward(request, response);
+//			}
+//		}
 		
 		//doGet(request, response);
 	}

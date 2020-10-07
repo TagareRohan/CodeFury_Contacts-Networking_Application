@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.training.dao.UserServiceImpl;
-import com.training.models.User;
+import com.training.daos.UserDaoImpl;
+
 
 /**
  * Servlet implementation class UserServlet
@@ -18,15 +18,15 @@ import com.training.models.User;
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	UserDaoImpl service = null;
 	RequestDispatcher dispatcher=null;
-	UserServiceImpl service;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public UserServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        this.service = new UserDaoImpl();
     }
 
 	/**
@@ -43,32 +43,32 @@ public class UserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String login=request.getParameter("submit");
-		
-		if(login.equals("userLogin"))
-		{
-			String userName=request.getParameter("userName");
-			String password=request.getParameter("password");
-			if(userName.equals(password))
-			{
-				String fullName=service.findUser(userName);
-				
-				request.setAttribute("fullName", fullName);
-				dispatcher=request.getRequestDispatcher("userHome.jsp");
-				dispatcher.forward(request, response);
-			}
-		}
-		else if(login.equals("userSignUp"))
-		{
-			String userName=request.getParameter("userName");
-			String fullName=request.getParameter("fullName");
-			
-			service.addUser(new User(0,fullName,userName,"female"));
-			request.setAttribute("fullName", fullName);
-			
-			dispatcher=request.getRequestDispatcher("userHome.jsp");
-			dispatcher.forward(request, response);
-		}
+//		String login=request.getParameter("submit");
+//		
+//		if(login.equals("userLogin"))
+//		{
+//			String userName=request.getParameter("userName");
+//			String password=request.getParameter("password");
+//			if(userName.equals(password))
+//			{
+//				String fullName=service.findUser(userName);
+//				
+//				request.setAttribute("fullName", fullName);
+//				dispatcher=request.getRequestDispatcher("userHome.jsp");
+//				dispatcher.forward(request, response);
+//			}
+//		}
+//		else if(login.equals("userSignUp"))
+//		{
+//			String userName=request.getParameter("userName");
+//			String fullName=request.getParameter("fullName");
+//			
+//			service.addUser(new User(0,fullName,userName,"female"));
+//			request.setAttribute("fullName", fullName);
+//			
+//			dispatcher=request.getRequestDispatcher("userHome.jsp");
+//			dispatcher.forward(request, response);
+//		}
 		
 		//doGet(request, response);
 	}

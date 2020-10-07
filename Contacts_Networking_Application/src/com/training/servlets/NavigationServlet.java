@@ -55,6 +55,7 @@ public class NavigationServlet extends HttpServlet {
 			dispatcher=request.getRequestDispatcher("userLogin.jsp");
 		}
 		
+		dispatcher.forward(request, response);
 		//doGet(request, response);
 	}
 
