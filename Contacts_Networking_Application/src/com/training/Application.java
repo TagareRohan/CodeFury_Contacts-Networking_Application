@@ -26,10 +26,10 @@ public class Application {
 //				"Somewhere in Amazon", "Amazon", "Nebraska", "US", "Justice League", null);
 //		System.out.println(userService.addContact(contact));
 		
-		System.out.println(userService.unblockUser(1, 306));
+		userService.viewBlockedUsers(201).forEach(System.out::println);
 		
 		ArrayList<User> userList=new ArrayList<User>();
-		userList=userService.searchUsers();
+		
 		
 		userList.forEach(System.out::println);
 		

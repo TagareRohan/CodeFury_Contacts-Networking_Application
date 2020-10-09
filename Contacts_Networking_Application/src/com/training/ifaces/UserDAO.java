@@ -21,7 +21,6 @@ public interface UserDAO {
 	public boolean editContact(Contact contact);
 	Set<Contact> viewContacts(User user);
 	Set<User> viewFriends(long id);
-	ArrayList<User> searchUsers();
-	TreeSet<Person> viewBlockedUsers();
+	Set<User> viewBlockedUsers(long userId);
 	
 }

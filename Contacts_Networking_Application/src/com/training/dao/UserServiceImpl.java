@@ -249,17 +249,17 @@ public class UserServiceImpl implements UserDAO {
 	@Override
 	public Set<User> viewFriends(long userId) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT users.id,users.username,"
-						+ " from users left outer join relationship "
-						+ "on (users.id=relationship.userid1 or users.id=relationship.userid2) "
-						+ "where relationship.status=? and users.id=?";
-		Set<User> sortedFriends=new TreeSet<>();
+		String sql = " select * from users where username in( SELECT users.username from users inner join "
+				+ "relationship on (users.id=relationship.userid1) where userid2=? and relationship.status=1 union  "
+				+ "SELECT users.username from users inner join relationship on (users.id=relationship.userid2) "
+				+ "where userid1=? and relationship.status=1 )";
+		Set<User> sortedFriends=new TreeSet<>(new NameComparator());
 		PreparedStatement pstmt = null;
 		
 		try {
 			
 			pstmt = this.derbyConnection.prepareStatement(sql);
-			pstmt.setInt(1, 1);
+			pstmt.setInt(1, (int)userId);
 			pstmt.setInt(2, (int)userId);
 			ResultSet result = pstmt.executeQuery();
 			
@@ -275,6 +275,8 @@ public class UserServiceImpl implements UserDAO {
 			
 			System.out.println("Drvier Name:="+dbInfo.getDriverName());
 			System.out.println("Product Version:="+dbInfo.getDatabaseProductVersion());
+			
+			
 			
 			while(result.next()) {
 			
@@ -307,24 +309,31 @@ public class UserServiceImpl implements UserDAO {
 				sortedFriends.add(user);
 			}
 			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return sortedFriends;
 	}
+	
+	
+
+	
 
 	@Override
-	public ArrayList<User> searchUsers() {
+	public Set<User> viewBlockedUsers(long userId) {
 		// TODO Auto-generated method stub
-		String sql = "select * from users";
-		
+		String sql = " select * from users where username in( SELECT users.username from users inner join "
+				+ "relationship on (users.id=relationship.userid1) where userid2=? and relationship.status=3 union  "
+				+ "SELECT users.username from users inner join relationship on (users.id=relationship.userid2) "
+				+ "where userid1=? and relationship.status=3 )";
+		Set<User> sortedFriends=new TreeSet<>(new NameComparator());
 		PreparedStatement pstmt = null;
 		
 		try {
 			
 			pstmt = this.derbyConnection.prepareStatement(sql);
-			
+			pstmt.setInt(1, (int)userId);
+			pstmt.setInt(2, (int)userId);
 			ResultSet result = pstmt.executeQuery();
 			
 			ResultSetMetaData metaData = result.getMetaData();
@@ -339,6 +348,8 @@ public class UserServiceImpl implements UserDAO {
 			
 			System.out.println("Drvier Name:="+dbInfo.getDriverName());
 			System.out.println("Product Version:="+dbInfo.getDatabaseProductVersion());
+			
+			
 			
 			while(result.next()) {
 			
@@ -368,25 +379,23 @@ public class UserServiceImpl implements UserDAO {
 									address, city, state, country, company, barr, username,id);
 				
 				
-				this.userList.add(user);
+				sortedFriends.add(user);
 			}
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return this.userList;
-	}
-
-	@Override
-	public TreeSet<Person> viewBlockedUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		return sortedFriends;
 	}
 
 	@Override
 	public boolean sendRequest(long userId1, long userId2) {
 		// TODO Auto-generated method stub
+		if(userId1>userId2) {
+			long temp=userId1;
+			userId1=userId2;
+			userId2=temp;
+		}
 		String sql = "insert into relationship "
 				+ "values(?,?,?,?)";
 
@@ -484,6 +493,11 @@ public class UserServiceImpl implements UserDAO {
 	@Override
 	public boolean blockUser(long userId1, long userId2) {
 		// TODO Auto-generated method stub
+		if(userId1>userId2) {
+			long temp=userId1;
+			userId1=userId2;
+			userId2=temp;
+		}
 		String sql = "update relationship set status=?, actionId=? where userId1=? and userId2=?";
 
 		PreparedStatement pstmt = null;
