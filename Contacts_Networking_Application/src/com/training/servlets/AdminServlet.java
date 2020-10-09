@@ -49,63 +49,78 @@ public class AdminServlet extends HttpServlet {
 		
 		String adminAction=request.getParameter("adminAction");
 		
-		if(adminAction.equals("searchUser"))
+		if(request.getSession(false)==null)
 		{
-			dispatcher=request.getRequestDispatcher("searchUser.jsp");
+			dispatcher=request.getRequestDispatcher("index.html");
 			dispatcher.forward(request, response);
 		}
-		else if(adminAction.equals("disableUser"))
+		else
 		{
-			Map<String,String> userList=service.viewUsersToDisable();
-			request.setAttribute("disableList", userList);
-			
-			dispatcher=request.getRequestDispatcher("disableUser.jsp");
-			dispatcher.forward(request, response);
-		}
-		else if(adminAction.equals("deleteUser"))
-		{
-			Map<String,String> userList=service.viewUsersToDelete();
-			request.setAttribute("deleteList", userList);
-			
-			dispatcher=request.getRequestDispatcher("deleteUser.jsp");
-			dispatcher.forward(request, response);
-		}
-		
-		if(request.getParameter("searchUser").equals("searchUser"))
-		{
-			String userName=request.getParameter("userName");
-			
-			Map<String,String> userList=service.searchUser(userName);
-			request.setAttribute("result", userList);			
-			
-			dispatcher=request.getRequestDispatcher("adminResult.jsp");
-			dispatcher.forward(request, response);
-			
-		}
-		
-		if(request.getParameter("deleteUsers").equals("deleteUsers"))
-		{
-			String[] userList=request.getParameterValues("deleteList");
-			
-			for(String user: userList)
+			if(adminAction.equals("searchUser"))
 			{
-				service.deleteUser(user);
+				dispatcher=request.getRequestDispatcher("searchUser.jsp");
+				dispatcher.forward(request, response);
+			}
+			else if(adminAction.equals("disableUser"))
+			{
+				Map<String,String> userList=service.viewUsersToDisable();
+				request.setAttribute("disableList", userList);
+				
+				dispatcher=request.getRequestDispatcher("disableUser.jsp");
+				dispatcher.forward(request, response);
+			}
+			else if(adminAction.equals("deleteUser"))
+			{
+				Map<String,String> userList=service.viewUsersToDelete();
+				request.setAttribute("deleteList", userList);
+				
+				dispatcher=request.getRequestDispatcher("deleteUser.jsp");
+				dispatcher.forward(request, response);
 			}
 			
-			dispatcher=request.getRequestDispatcher("adminResult.jsp");
-		}
-		
-		if(request.getParameter("disableUsers").equals("disableUsers"))
-		{
-			String[] userList=request.getParameterValues("disableList");
-			
-			for(String user: userList)
+			if(request.getParameter("viewUser").equals("viewUser"))
 			{
-				service.disableUser(user);
+				String statistics=service.getStatistics();
+				
+				request.setAttribute("result", statistics);			
+				
+				dispatcher=request.getRequestDispatcher("viewStatistics.jsp");
+				dispatcher.forward(request, response);
+				
 			}
 			
-			dispatcher=request.getRequestDispatcher("adminResult.jsp");
+			if(request.getParameter("deleteUsers").equals("deleteUsers"))
+			{
+				String[] userList=request.getParameterValues("deleteList");
+				
+				for(String user: userList)
+				{
+					service.deleteUser(user);
+				}
+				
+				dispatcher=request.getRequestDispatcher("adminResult.jsp");
+			}
+			
+			if(request.getParameter("disableUsers").equals("disableUsers"))
+			{
+				String[] userList=request.getParameterValues("disableList");
+				
+				for(String user: userList)
+				{
+					service.disableUser(user);
+				}
+				
+				dispatcher=request.getRequestDispatcher("adminResult.jsp");
+			}
+			
+			if(request.getParameter("backToHome").equals("backToHome"))
+			{
+				dispatcher=request.getRequestDispatcher("adminHome.jsp");
+				dispatcher.forward(request, response);
+			}
 		}
+		
+		
 		
 		//doGet(request, response);
 	}

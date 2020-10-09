@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.training.dao.Verification;
 import com.training.models.User;
@@ -19,6 +20,7 @@ import com.training.models.User;
 public class NavigationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Verification verify;
+	HttpSession session;
 	
 	RequestDispatcher dispatcher=null;
        
@@ -35,7 +37,7 @@ public class NavigationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -67,6 +69,7 @@ public class NavigationServlet extends HttpServlet {
 			String password=request.getParameter("password");
 			if(verify.verifyUser(userName, password))
 			{
+				session=request.getSession(true);
 				
 				request.setAttribute("userName", userName);
 				dispatcher=request.getRequestDispatcher("userHome.jsp");
@@ -99,12 +102,29 @@ public class NavigationServlet extends HttpServlet {
 			String password=request.getParameter("password");
 			if(verify.verifyAdmin(adminUserName,password))
 			{
+				session=request.getSession(true);
 						
 				request.setAttribute("userName", adminUserName);
 				dispatcher=request.getRequestDispatcher("adminHome.jsp");
 				dispatcher.forward(request, response);
 			}
 			
+		}
+		
+		String logout=request.getParameter("logout");
+		
+		if(logout.equals("userLogout"))
+		{
+			session.invalidate();
+			dispatcher=request.getRequestDispatcher("index.html");
+			dispatcher.forward(request, response);
+		}
+		
+		if(logout.equals("adminLogout"))
+		{
+			session.invalidate();
+			dispatcher=request.getRequestDispatcher("index.html");
+			dispatcher.forward(request, response);
 		}
 		
 		//doGet(request, response);

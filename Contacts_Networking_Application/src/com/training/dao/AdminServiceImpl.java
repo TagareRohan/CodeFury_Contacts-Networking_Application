@@ -20,11 +20,8 @@ public class AdminServiceImpl implements AdminServices{
 	}
 
 	@Override
-	public Map<String,String> searchUser(String userName) {
+	public String getStatistics() {
 		// TODO Auto-generated method stub
-		
-		
-		
 		return null;
 	}
 

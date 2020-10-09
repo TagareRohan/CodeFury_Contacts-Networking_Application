@@ -53,88 +53,104 @@ public class UserServlet extends HttpServlet {
 		
 		String userAction=request.getParameter("userAction");
 		
-		if(userAction.equals("addNewContact"))
+		if(request.getSession(false)==null)
 		{
-			dispatcher=request.getRequestDispatcher("addNewContact.jsp");
+			dispatcher=request.getRequestDispatcher("index.html");
 			dispatcher.forward(request, response);
 		}
-		else if(userAction.equals("AddNewFriend"))
+		else
 		{
-			dispatcher=request.getRequestDispatcher("addNewFriend.jsp");
-			dispatcher.forward(request, response);
-		}
-		else if(userAction.equals("blockUser"))
-		{
-			dispatcher=request.getRequestDispatcher("blockUser.jsp");
-			dispatcher.forward(request, response);
-		}
-		else if(userAction.equals("searchUser"))
-		{
-			dispatcher=request.getRequestDispatcher("searchUser.jsp");
-			dispatcher.forward(request, response);
-		}
-		else if(userAction.equals("viewBlockedList"))
-		{
-			dispatcher=request.getRequestDispatcher("viewBlockedList.jsp");
-			dispatcher.forward(request, response);
-		}
-		else if(userAction.equals("viewFriendList"))
-		{
-			dispatcher=request.getRequestDispatcher("viewFriendList.jsp");
-			dispatcher.forward(request, response);
-		}
-		else if(userAction.equals("viewContactList"))
-		{
-			dispatcher=request.getRequestDispatcher("viewContactList.jsp");
-			dispatcher.forward(request, response);
+			if(userAction.equals("addNewContact"))
+			{
+				dispatcher=request.getRequestDispatcher("addNewContact.jsp");
+				dispatcher.forward(request, response);
+			}
+			else if(userAction.equals("AddNewFriend"))
+			{
+				dispatcher=request.getRequestDispatcher("addNewFriend.jsp");
+				dispatcher.forward(request, response);
+			}
+			else if(userAction.equals("blockUser"))
+			{
+				dispatcher=request.getRequestDispatcher("blockUser.jsp");
+				dispatcher.forward(request, response);
+			}
+			else if(userAction.equals("searchUser"))
+			{
+				dispatcher=request.getRequestDispatcher("searchUser.jsp");
+				dispatcher.forward(request, response);
+			}
+			else if(userAction.equals("viewBlockedList"))
+			{
+				dispatcher=request.getRequestDispatcher("viewBlockedList.jsp");
+				dispatcher.forward(request, response);
+			}
+			else if(userAction.equals("viewFriendList"))
+			{
+				dispatcher=request.getRequestDispatcher("viewFriendList.jsp");
+				dispatcher.forward(request, response);
+			}
+			else if(userAction.equals("viewContactList"))
+			{
+				dispatcher=request.getRequestDispatcher("viewContactList.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			if(request.getParameter("addNewContact").equals("addNewContact"))
+			{
+				List<Contact> contactList=service.viewContactList();
+				String fullName=request.getParameter("fullName");
+				String email=request.getParameter("email");
+				
+				/*
+				 * set other parameters
+				 * 
+				 */
+				
+				contactList.add(new Contact());
+				
+				dispatcher=request.getRequestDispatcher("userResult.jsp");
+				
+			}
+			if(request.getParameter("addNewFriend").equals("addNewFriend"))
+			{
+				List<Friend> friendList=service.viewFriendList();
+				String fullName=request.getParameter("fullName");
+				String email=request.getParameter("email");
+				
+				/*
+				 * set other parameters
+				 * 
+				 */
+				
+				friendList.add(new Friend());
+				
+				dispatcher=request.getRequestDispatcher("userResult.jsp");
+				
+			}
+			if(request.getParameter("blockUser").equals("blockUser"))
+			{
+				List<User> blockList=service.viewBlockedList();
+				
+				String blockUser=request.getParameter("blockUser");
+				
+				/*
+				 * 
+				 * 
+				 */
+				
+				dispatcher=request.getRequestDispatcher("userResult.jsp");
+				
+			}
+			
+			if(request.getParameter("backToHome").equals("backToHome"))
+			{
+				dispatcher=request.getRequestDispatcher("userHome.jsp");
+				dispatcher.forward(request, response);
+			}
 		}
 		
-		if(request.getParameter("addNewContact").equals("addNewContact"))
-		{
-			List<Contact> contactList=service.viewContactList();
-			String fullName=request.getParameter("fullName");
-			String email=request.getParameter("email");
-			
-			/*
-			 * set other parameters
-			 * 
-			 */
-			
-			contactList.add(new Contact());
-			
-			dispatcher=request.getRequestDispatcher("userResult.jsp");
-			
-		}
-		if(request.getParameter("addNewFriend").equals("addNewFriend"))
-		{
-			List<Friend> friendList=service.viewFriendList();
-			String fullName=request.getParameter("fullName");
-			String email=request.getParameter("email");
-			
-			/*
-			 * set other parameters
-			 * 
-			 */
-			
-			friendList.add(new Friend());
-			
-			dispatcher=request.getRequestDispatcher("userResult.jsp");
-			
-		}
-		if(request.getParameter("blockUser").equals("blockUser"))
-		{
-			List<User> blockList=service.viewBlockedList();
-			
-			String blockUser=request.getParameter("blockUser");
-			
-			/*
-			 * 
-			 * 
-			 */
-			
-			dispatcher=request.getRequestDispatcher("userResult.jsp");
-			
-		}
+		
 		
 		
 		

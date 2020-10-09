@@ -6,7 +6,8 @@ import com.training.models.User;
 
 public interface AdminServices {
 
-	public Map<String,String> searchUser(String userName);
+	public String getStatistics();
+	
 	public boolean deleteUser(String userName);
 	public boolean disableUser(String userName);
 	public Map<String,String> viewUsersToDisable();
