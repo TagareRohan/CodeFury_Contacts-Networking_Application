@@ -17,15 +17,16 @@ public interface UserDao {
 
 	boolean registerUser(User user);
 	boolean loginUser(String username, String password);
-	boolean addContact(Person user, Contact contact);
-	Collection<Contact> viewContacts(Person user);
-	Collection<Person> viewFriends(Person user);
-	Collection<Person> searchUsers(String nameEmail);
+	boolean addContact(User user, Contact contact);
+	Collection<Contact> viewContacts(User user);
+	Collection<User> viewFriends(int id);
+	Person searchUser(String nameEmail);
 	Collection<Person> viewBlockedUsers();
-	boolean sendRequest(Person user1, Person user2);
-	boolean addFriend(Person user1, Person user2);
-	boolean blockUser(Person user1, Person user2);
-	boolean unblockUser(Person user1, Person user2);
+	boolean sendRequest(int userId1, int userId2);
+	boolean addFriend(int userId1, int userId2);
+	boolean blockUser(int userId1, int userId2);
+	boolean unblockUser(int userId1, int userId2);
+	boolean declineRequest(int userId1, int userId2);
 	boolean logoutUser();
 	
 }

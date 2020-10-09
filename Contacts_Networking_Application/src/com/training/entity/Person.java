@@ -42,6 +42,20 @@ public class Person {
 		this.fullName = fullName;
 		this.email = email;
 	}
+	
+	
+
+	/**
+	 * @param city
+	 * @param state
+	 * @param country
+	 */
+	public Person(String city, String state, String country) {
+		super();
+		this.city = city;
+		State = state;
+		this.country = country;
+	}
 
 	/**
 	 * @param fullName

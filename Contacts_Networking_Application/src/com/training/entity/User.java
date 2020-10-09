@@ -12,6 +12,7 @@ import java.util.Objects;
  */
 public class User extends Person {
 
+	private int id;
 	private String username;
 	private String password;
 	
@@ -20,8 +21,11 @@ public class User extends Person {
 	 */
 	public User() {
 		super();
-		
+		// TODO Auto-generated constructor stub
 	}
+
+
+
 
 	/**
 	 * @param fullName
@@ -35,15 +39,106 @@ public class User extends Person {
 	 * @param country
 	 * @param company
 	 * @param image
+	 */
+	public User(String fullName, String email, long phoneNumber, String gender, LocalDate dateOfBirth, String address,
+			String city, String state, String country, String company, byte[] image) {
+		super(fullName, email, phoneNumber, gender, dateOfBirth, address, city, state, country, company, image);
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
+	/**
+	 * @param city
+	 * @param state
+	 * @param country
+	 */
+	public User(String city, String state, String country) {
+		super(city, state, country);
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+
+	/**
+	 * @param fullName
+	 * @param email
+	 */
+	public User(String fullName, String email) {
+		super(fullName, email);
+		// TODO Auto-generated constructor stub
+	}
+	
+	/**
+	 * @param id
 	 * @param username
 	 * @param password
 	 */
-	public User(String fullName, String email, long phoneNumber, String gender, LocalDate dateOfBirth, String address,
-			String city, String state, String country, String company, byte[] image, String username, String password) {
-		super(fullName, email, phoneNumber, gender, dateOfBirth, address, city, state, country, company, image);
+	public User(int id, String username, String password) {
+		super();
+		this.id = id;
 		this.username = username;
 		this.password = password;
 	}
+	
+	/**
+	 * @param fullName
+	 * @param email
+	 * @param phoneNumber
+	 * @param gender
+	 * @param dateOfBirth
+	 * @param address
+	 * @param city
+	 * @param state
+	 * @param country
+	 * @param company
+	 * @param image
+	 * @param id
+	 * @param username
+	 */
+	public User(String fullName, String email, long phoneNumber, String gender, LocalDate dateOfBirth, String address,
+			String city, String state, String country, String company, byte[] image, int id, String username) {
+		super(fullName, email, phoneNumber, gender, dateOfBirth, address, city, state, country, company, image);
+		this.id = id;
+		this.username = username;
+	}
+
+
+	/**
+	 * @param city
+	 * @param state
+	 * @param country
+	 * @param id
+	 */
+	public User(String city, String state, String country, int id) {
+		super(city, state, country);
+		this.id = id;
+	}
+
+
+
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+
+
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
 
 	/**
 	 * @return the username

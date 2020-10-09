@@ -14,8 +14,8 @@ import com.training.entity.Person;
 public interface AdminDao {
 
 	boolean loginAdmin(String adminUsername, String adminPassword);
-	boolean disableUser(Person user);
-	boolean deleteUser(Person user);
+	boolean disableUser(int id);
+	boolean deleteUser(int id);
 	Collection<?> showSummary();
 	boolean logoutAdmin();
 }
