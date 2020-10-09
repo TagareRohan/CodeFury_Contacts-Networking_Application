@@ -49,39 +49,7 @@ public class UserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String login=request.getParameter("submit");
 		
-		if(login.equals("userLogin"))
-		{
-			String userName=request.getParameter("userName");
-			String password=request.getParameter("password");
-			if(verify.verifyUser(userName, password))
-			{
-				
-				request.setAttribute("userName", userName);
-				dispatcher=request.getRequestDispatcher("userHome.jsp");
-				dispatcher.forward(request, response);
-			}
-		}
-		else if(login.equals("userSignUp"))
-		{
-			String userName=request.getParameter("userName");
-			String fullName=request.getParameter("fullName");
-			
-			/*
-			 * ....
-			 *  ....
-			 *  
-			 *  set other fields as well
-			 */
-			
-			verify.registerUser(new User());
-			
-			request.setAttribute("userName", userName);
-			
-			dispatcher=request.getRequestDispatcher("userLogin.jsp");
-			dispatcher.forward(request, response);
-		}
 		
 		String userAction=request.getParameter("userAction");
 		
@@ -163,8 +131,6 @@ public class UserServlet extends HttpServlet {
 			 * 
 			 * 
 			 */
-			
-			
 			
 			dispatcher=request.getRequestDispatcher("userResult.jsp");
 			
