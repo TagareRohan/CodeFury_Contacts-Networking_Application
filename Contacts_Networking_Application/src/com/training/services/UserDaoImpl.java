@@ -325,12 +325,6 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean logoutUser() {
-		// TODO I dont know if this is necessary or not
-		return false;
-	}
-
-	@Override
 	public boolean sendRequest(int userId1, int userId2) {
 		// TODO send a friend request from user1 to user2
 		String sql = "insert into relationship "

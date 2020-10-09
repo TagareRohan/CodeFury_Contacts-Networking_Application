@@ -137,9 +137,9 @@ public class AdminDaoImpl implements AdminDao {
 	}
 
 	@Override
-	public boolean logoutAdmin() {
-		// TODO add code to logout admin (maybe this is not needed.)
-		return false;
+	public Collection<User> viewUsersToDisable() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

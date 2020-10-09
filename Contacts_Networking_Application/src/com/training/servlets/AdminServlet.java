@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.training.ifaces.AdminDao;
 
 //import com.training.dao.AdminServiceImpl;
-aimport com.training.dao.Verification;
+//import com.training.dao.Verification;
 import com.training.services.AdminDaoImpl;
 
 /**

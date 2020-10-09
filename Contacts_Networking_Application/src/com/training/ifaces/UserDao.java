@@ -27,6 +27,5 @@ public interface UserDao {
 	boolean blockUser(int userId1, int userId2);
 	boolean unblockUser(int userId1, int userId2);
 	boolean declineRequest(int userId1, int userId2);
-	boolean logoutUser();
 	
 }
