@@ -11,10 +11,11 @@ public class Contact extends Person {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Contact(String fullName, String email, long phoneNumber, String gender, LocalDate dateOfBirth,
+	public Contact(long userId,String fullName, String email, long phoneNumber, String gender, LocalDate dateOfBirth,
 			String address, String city, String state, String country, String company, byte[] image) {
 		super(fullName, email, phoneNumber, gender, dateOfBirth, address, city, state, country, company, image);
 		// TODO Auto-generated constructor stub
+		this.userId=userId;
 	}
 
 	public Contact(String fullName, String email) {
@@ -27,6 +28,7 @@ public class Contact extends Person {
 		this.userId = userId;
 	}
 
+	
 	/**
 	 * @return the userId
 	 */

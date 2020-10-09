@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 
 import com.training.ifaces.UserDAO;
@@ -22,6 +23,7 @@ import com.training.models.Contact;
 import com.training.models.Person;
 import com.training.models.User;
 import com.training.utils.ConnectionUtility;
+import com.training.utils.NameComparator;
 
 public class UserServiceImpl implements UserDAO {
 
@@ -87,7 +89,7 @@ public class UserServiceImpl implements UserDAO {
 	@Override
 	public User findUser(String userName) {
 		// TODO Auto-generated method stub
-		String sql = "select * from users where username=?";
+		String sql = "select * from users where username=? or email=?";
 		
 		PreparedStatement pstmt = null;
 		
@@ -97,6 +99,7 @@ public class UserServiceImpl implements UserDAO {
 			pstmt = this.derbyConnection.prepareStatement(sql);
 			
 			pstmt.setString(1, userName);
+			pstmt.setString(2, userName);
 			ResultSet result = pstmt.executeQuery();
 			//System.out.println(result);
 			result.next();
@@ -135,19 +138,180 @@ public class UserServiceImpl implements UserDAO {
 	@Override
 	public boolean addContact(Contact contact) {
 		// TODO Auto-generated method stub
-		return false;
+		String sql = "insert into contacts(userid,fullName,email,phoneNumber,gender,dateOfBirth,address,"
+				+ "city,state,country,company,image) "
+				+ "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+
+		PreparedStatement pstmt = null;
+		InputStream fin=null;
+		try {
+			fin = new FileInputStream("profile.png");
+		} catch (FileNotFoundException e1) {
+	// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		int rowUpdated = 0;
+
+		try {
+			pstmt = this.derbyConnection.prepareStatement(sql);
+			
+			pstmt.setInt(1, (int)contact.getUserId());
+			pstmt.setString(2, contact.getFullName());
+			pstmt.setString(3, contact.getEmail());
+			pstmt.setLong(4, contact.getPhoneNumber());
+			pstmt.setString(5, contact.getGender());
+			pstmt.setDate(6, Date.valueOf(contact.getDateOfBirth()));
+			pstmt.setString(7, contact.getAddress());
+			pstmt.setString(8, contact.getCity());
+			pstmt.setString(9, contact.getState());
+			pstmt.setString(10, contact.getCountry());
+			pstmt.setString(11, contact.getCompany());
+			pstmt.setBlob(12,fin);
+			
+			rowUpdated = pstmt.executeUpdate();
+	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+	
+		}
+
+		return rowUpdated==1 ? true:false;
+	
 	}
 
 	@Override
-	public TreeSet<Contact> viewContacts() {
+	public TreeSet<Contact> viewContacts(User user) {
 		// TODO Auto-generated method stub
-		return null;
+		TreeSet<Contact> contacts=new TreeSet<>(new NameComparator());
+		String sql = "select * from contacts where userid=?";
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			pstmt = this.derbyConnection.prepareStatement(sql);
+			pstmt.setInt(1, (int)user.getId());
+			ResultSet result = pstmt.executeQuery();
+			
+			ResultSetMetaData metaData = result.getMetaData();
+			
+			int columnCount = metaData.getColumnCount();
+			
+			for(int i = 1; i<=columnCount; i++) {
+				System.out.println("========= Columm:="+metaData.getColumnName(i));
+			}
+			
+			DatabaseMetaData dbInfo = this.derbyConnection.getMetaData();
+			
+			System.out.println("Drvier Name:="+dbInfo.getDriverName());
+			System.out.println("Product Version:="+dbInfo.getDatabaseProductVersion());
+			
+			while(result.next()) {
+			
+				long id=(long)result.getInt("userid");
+				String fullName = result.getString("fullName");
+				String email=result.getString("email");
+				long phoneNumber=result.getLong("phoneNumber");
+				String gender=result.getString("gender");
+				LocalDate dateOfBirth=result.getDate("dateOfBirth").toLocalDate();
+				String address=result.getString("address");
+				String city=result.getString("city");
+				String state=result.getString("state");
+				String country=result.getString("country");
+				String company=result.getString("company");
+				Blob image=result.getBlob("image");
+				
+				
+				byte barr[]=image.getBytes(1,(int)image.length());//1 means first image  
+	              
+				//FileOutputStream fout=new FileOutputStream("D:\\HSBC\\CodeFury\\CodeFury_Contacts-Networking_Application\\Contacts_Networking_Application\\sonoo.jpg");  
+				//fout.write(barr);  
+				              
+				//fout.close();  
+				
+				Contact contact=new Contact(id,fullName, email, phoneNumber, gender, dateOfBirth, 
+									address, city, state, country, company, barr);
+				
+			
+				System.out.println(contacts.add(contact));
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return contacts;
 	}
 
 	@Override
-	public TreeSet<Person> viewFriends() {
+	public Set<User> viewFriends(long userId) {
 		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT users.id,users.username,"
+						+ " from users left outer join relationship "
+						+ "on (users.id=relationship.userid1 or users.id=relationship.userid2) "
+						+ "where relationship.status=? and users.id=?";
+		Set<User> sortedFriends=new TreeSet<>();
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			pstmt = this.derbyConnection.prepareStatement(sql);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, (int)userId);
+			ResultSet result = pstmt.executeQuery();
+			
+			ResultSetMetaData metaData = result.getMetaData();
+			
+			int columnCount = metaData.getColumnCount();
+			
+			for(int i = 1; i<=columnCount; i++) {
+				System.out.println("========= Columm:="+metaData.getColumnName(i));
+			}
+			
+			DatabaseMetaData dbInfo = this.derbyConnection.getMetaData();
+			
+			System.out.println("Drvier Name:="+dbInfo.getDriverName());
+			System.out.println("Product Version:="+dbInfo.getDatabaseProductVersion());
+			
+			while(result.next()) {
+			
+				long id=(long)result.getInt("id");
+				String fullName = result.getString("fullName");
+				String email=result.getString("email");
+				long phoneNumber=result.getLong("phoneNumber");
+				String gender=result.getString("gender");
+				LocalDate dateOfBirth=result.getDate("dateOfBirth").toLocalDate();
+				String address=result.getString("address");
+				String city=result.getString("city");
+				String state=result.getString("state");
+				String country=result.getString("country");
+				String company=result.getString("company");
+				Blob image=result.getBlob("image");
+				String username=result.getString("username");
+				
+				
+				byte barr[]=image.getBytes(1,(int)image.length());//1 means first image  
+	              
+				//FileOutputStream fout=new FileOutputStream("D:\\HSBC\\CodeFury\\CodeFury_Contacts-Networking_Application\\Contacts_Networking_Application\\sonoo.jpg");  
+				//fout.write(barr);  
+				              
+				//fout.close();  
+				
+				User user=new User(fullName, email, phoneNumber, gender, dateOfBirth, 
+									address, city, state, country, company, barr, username,id);
+				
+				
+				sortedFriends.add(user);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sortedFriends;
 	}
 
 	@Override
@@ -346,6 +510,41 @@ public class UserServiceImpl implements UserDAO {
 		}
 
 		return rowUpdated==1 ? true:false;
+		
+	}
+
+	@Override
+	public boolean editContact(Contact contact) {
+		return false;
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean unblockUser(long userId1, long userId2) {
+		// TODO Auto-generated method stub
+		String sql = "delete from relationship where actionId=? and status=? and (userid1=? or userid2=?)";
+		
+		java.sql.PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		User user=null;
+		
+		try {
+			pstmt = this.derbyConnection.prepareStatement(sql);
+			
+			pstmt.setInt(1, (int)userId1);
+			pstmt.setInt(2, 3);
+			pstmt.setInt(3, (int)userId2);
+			pstmt.setInt(4, (int)userId2);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result==1 ? true:false; 
 		
 	}
 }

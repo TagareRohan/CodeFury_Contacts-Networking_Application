@@ -16,7 +16,7 @@ import com.training.utils.ConnectionUtility;
 
 public class AdminServiceImpl implements AdminServices{
 
-	List<User> userList;
+	ArrayList<User> userList;
 	Connection derbyConnection;
 	
 	public AdminServiceImpl() {
@@ -100,7 +100,7 @@ public class AdminServiceImpl implements AdminServices{
 				
 				
 				
-				User user=new User( city, state, country,id);
+				User user=new User(null, null, 0, null, null, null, city, state, country, null, null, null, id);
 				
 				
 				this.userList.add(user);
@@ -153,9 +153,30 @@ public class AdminServiceImpl implements AdminServices{
 
 
 	@Override
-	public boolean deleteUser(User user) {
+	public boolean deleteUser(long i) {
 		// TODO Auto-generated method stub
-		return false;
+		
+		String sql = "delete from users where id = ?";
+		
+		java.sql.PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		User deletedUser=null;
+		
+		try {
+			pstmt = this.derbyConnection.prepareStatement(sql);
+			
+			pstmt.setInt(1, (int)i);
+						
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result == 1 ? true : false;
 	}
 
 	

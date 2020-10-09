@@ -9,6 +9,6 @@ public interface AdminServices {
 	public ArrayList<User> showAllUsers();
 	public boolean enableUser(long id);
 	public boolean disableUser(long id);
-	public boolean deleteUser(User user);
+	public boolean deleteUser(long i);
 	
 }
