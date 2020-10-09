@@ -103,6 +103,7 @@ public class AdminServlet extends HttpServlet {
 			{
 				service.deleteUser(user);
 			}
+<<<<<<< HEAD
 		}
 		
 		if(request.getParameter("disableUsers").equals("disableUsers"))
@@ -113,6 +114,22 @@ public class AdminServlet extends HttpServlet {
 			{
 				service.disableUser(user);
 			}
+=======
+			
+			dispatcher=request.getRequestDispatcher("adminResult.jsp");
+		}
+		
+		if(request.getParameter("disableUsers").equals("disableUsers"))
+		{
+			String[] userList=request.getParameterValues("disableList");
+			
+			for(String user: userList)
+			{
+				service.disableUser(user);
+			}
+			
+			dispatcher=request.getRequestDispatcher("adminResult.jsp");
+>>>>>>> branch 'rohan_branch' of https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application.git
 		}
 		
 		//doGet(request, response);

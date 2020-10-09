@@ -43,5 +43,34 @@ public class UserServiceImpl implements UserServices {
 		return null;
 	}
 
+<<<<<<< HEAD
 	
 }
+=======
+	@Override
+	public boolean addNewFriend(String userName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean block(String userName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean unBlock(String userName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<User> viewBlockedList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}
+>>>>>>> branch 'rohan_branch' of https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application.git

@@ -11,6 +11,10 @@ public interface AdminServices {
 	public boolean disableUser(String userName);
 	public Map<String,String> viewUsersToDisable();
 	public Map<String,String> viewUsersToDelete();
+<<<<<<< HEAD
+	
+=======
+>>>>>>> branch 'rohan_branch' of https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application.git
 	
 	
 }

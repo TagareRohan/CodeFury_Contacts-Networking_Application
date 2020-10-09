@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<<<<<<< HEAD
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
@@ -52,5 +53,12 @@ $(document).ready(function(){
 <br>
 <hr>
 <a href="userHome.jsp">Back To Home</a>
+=======
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+>>>>>>> branch 'rohan_branch' of https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application.git
 </body>
 </html>
