@@ -49,5 +49,8 @@ $(document).ready(function(){
   </tr>
   </tbody>
 </table>
+<br>
+<hr>
+<a href="userHome.jsp">Back To Home</a>
 </body>
 </html>
