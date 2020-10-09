@@ -9,21 +9,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.training.services.AdminDaoImpl;
+
+
+
 /**
- * Servlet implementation class NavigationServlet
+ * Servlet implementation class AdminServlet
  */
-@WebServlet("/NavigationServlet")
-public class NavigationServlet extends HttpServlet {
+@WebServlet("/AdminServlet")
+public class AdminServlet1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	RequestDispatcher dispatcher=null;
-       
+	AdminDaoImpl service = null;
+	RequestDispatcher dispatcher = null;
+
     /**
-     * @see HttpServlet#HttpServlet()
+     * Default constructor. 
      */
-    public NavigationServlet() {
-        super();
+    public AdminServlet1() {
         // TODO Auto-generated constructor stub
+    	this.service=new AdminDaoImpl();
     }
 
 	/**
@@ -40,22 +44,20 @@ public class NavigationServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String input=request.getParameter("submit");
+//		if(request.getParameter("submit").equals("adminLogin"))
+//		{
+//			String adminUserName=request.getParameter("adminUserName");
+//			String password=request.getParameter("password");
+//			if(adminUserName.equals(password))
+//			{
+//				String fullName=service.findUser(adminUserName);
+//				
+//				request.setAttribute("fullName", fullName);
+//				dispatcher=request.getRequestDispatcher("adminHome.jsp");
+//				dispatcher.forward(request, response);
+//			}
+//		}
 		
-		if(input.equals("userLogin"))
-		{
-			dispatcher=request.getRequestDispatcher("userLogin.jsp");
-		}
-		else if(input.equals("userSignup"))
-		{
-			dispatcher=request.getRequestDispatcher("userSignup.jsp");
-		}
-		else if(input.equals("userLogin"))
-		{
-			dispatcher=request.getRequestDispatcher("userLogin.jsp");
-		}
-		
-		dispatcher.forward(request, response);
 		//doGet(request, response);
 	}
 

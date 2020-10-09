@@ -9,25 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.training.services.AdminDaoImpl;
-
+import com.training.services.UserDaoImpl;
 
 
 /**
- * Servlet implementation class AdminServlet
+ * Servlet implementation class UserServlet
  */
-@WebServlet("/AdminServlet")
-public class AdminServlet extends HttpServlet {
+@WebServlet("/UserServlet")
+public class UserServlet1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	AdminDaoImpl service = null;
-	RequestDispatcher dispatcher = null;
-
+	UserDaoImpl service = null;
+	RequestDispatcher dispatcher=null;
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public AdminServlet() {
-        // TODO Auto-generated constructor stub
-    	this.service=new AdminDaoImpl();
+    public UserServlet1() {
+        super();
+        this.service = new UserDaoImpl();
     }
 
 	/**
@@ -44,18 +43,31 @@ public class AdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-//		if(request.getParameter("submit").equals("adminLogin"))
+//		String login=request.getParameter("submit");
+//		
+//		if(login.equals("userLogin"))
 //		{
-//			String adminUserName=request.getParameter("adminUserName");
+//			String userName=request.getParameter("userName");
 //			String password=request.getParameter("password");
-//			if(adminUserName.equals(password))
+//			if(userName.equals(password))
 //			{
-//				String fullName=service.findUser(adminUserName);
+//				String fullName=service.findUser(userName);
 //				
 //				request.setAttribute("fullName", fullName);
-//				dispatcher=request.getRequestDispatcher("adminHome.jsp");
+//				dispatcher=request.getRequestDispatcher("userHome.jsp");
 //				dispatcher.forward(request, response);
 //			}
+//		}
+//		else if(login.equals("userSignUp"))
+//		{
+//			String userName=request.getParameter("userName");
+//			String fullName=request.getParameter("fullName");
+//			
+//			service.addUser(new User(0,fullName,userName,"female"));
+//			request.setAttribute("fullName", fullName);
+//			
+//			dispatcher=request.getRequestDispatcher("userHome.jsp");
+//			dispatcher.forward(request, response);
 //		}
 		
 		//doGet(request, response);
