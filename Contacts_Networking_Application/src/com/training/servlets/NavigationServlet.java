@@ -93,7 +93,7 @@ public class NavigationServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		
-		if(request.getParameter("submit").equals("adminLogin"))
+		if(login.equals("adminLogin"))
 		{
 			String adminUserName=request.getParameter("adminUserName");
 			String password=request.getParameter("password");
