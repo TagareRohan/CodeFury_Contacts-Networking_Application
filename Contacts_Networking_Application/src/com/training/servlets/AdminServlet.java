@@ -103,6 +103,8 @@ public class AdminServlet extends HttpServlet {
 			{
 				service.deleteUser(user);
 			}
+			
+			dispatcher=request.getRequestDispatcher("adminResult.jsp");
 		}
 		
 		if(request.getParameter("disableUsers").equals("disableUsers"))
@@ -113,6 +115,8 @@ public class AdminServlet extends HttpServlet {
 			{
 				service.disableUser(user);
 			}
+			
+			dispatcher=request.getRequestDispatcher("adminResult.jsp");
 		}
 		
 		//doGet(request, response);

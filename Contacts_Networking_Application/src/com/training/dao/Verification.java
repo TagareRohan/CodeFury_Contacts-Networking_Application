@@ -1,5 +1,7 @@
 package com.training.dao;
 
+import com.training.models.User;
+
 public class Verification {
 	
 	public boolean verifyAdmin(String userName,String password)
@@ -12,7 +14,7 @@ public class Verification {
 		return false;
 	}
 	
-	public boolean registerUser()
+	public boolean registerUser(User user)
 	{
 		return false;
 	}
