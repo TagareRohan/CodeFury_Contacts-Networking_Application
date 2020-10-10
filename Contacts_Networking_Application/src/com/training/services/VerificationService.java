@@ -66,10 +66,10 @@ public class VerificationService implements Verification {
 	}
 
 	@Override
-	public boolean verifyUser(String userName, String password) throws Exception {
+	public int verifyUser(String userName, String password) throws Exception {
 		String sql = "select * from users where username=?";
 		PreparedStatement pstmt = null;
-		boolean verified = false;
+//		boolean verified = false;
 		
 		pstmt = this.derbyConnection.prepareStatement(sql);
 		pstmt.setString(1, userName);
@@ -77,6 +77,7 @@ public class VerificationService implements Verification {
 		ResultSet result = pstmt.executeQuery();
 		
 		String passFromDb;
+		int userId;
 		
 		if (result.next()) {
 			passFromDb = result.getString("password");
@@ -85,11 +86,13 @@ public class VerificationService implements Verification {
 		}
 		
 		if (passFromDb.equals(password)) {
-			verified = true;
+//			verified = true;
+			userId = result.getInt("userid");
 		} else {
-			verified = false;
+//			verified = false;
+			throw new Exception("Wrong password.");
 		}
-		return verified;
+		return userId;
 	}
 
 	@Override
