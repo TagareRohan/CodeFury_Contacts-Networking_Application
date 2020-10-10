@@ -432,7 +432,7 @@ public class UserServiceImpl implements UserDAO {
 	@Override
 	public boolean acceptRequest(long userId1, long userId2) {
 		// TODO Auto-generated method stub
-		String sql = "update relationship set status=?, actionId=? where userId1=? and userId2=?";
+		String sql = "update relationship set status=?, actionId=? where ((userId1=? and userId2=?)or(userId1=? and userId2=?))";
 
 		PreparedStatement pstmt = null;
 		int rowUpdated = 0;
@@ -443,9 +443,11 @@ public class UserServiceImpl implements UserDAO {
 			//pstmt.setInt(1,0);
 			
 			pstmt.setInt(1, 1);
-			pstmt.setInt(2, (int)userId2);
+			pstmt.setInt(2, (int)userId1);
 			pstmt.setInt(3, (int)userId1);
 			pstmt.setInt(4, (int)userId2);
+			pstmt.setInt(5, (int)userId2);
+			pstmt.setInt(6, (int)userId1);
 			
 			
 			rowUpdated = pstmt.executeUpdate();
@@ -463,7 +465,7 @@ public class UserServiceImpl implements UserDAO {
 	@Override
 	public boolean declineRequest(long userId1, long userId2) {
 		// TODO Auto-generated method stub
-		String sql = "update relationship set status=?, actionId=? where userId1=? and userId2=?";
+		String sql = "update relationship set status=?, actionId=? where ((userId1=? and userId2=?) or(userId1=? and userId2=?))";
 
 		PreparedStatement pstmt = null;
 		int rowUpdated = 0;
@@ -474,9 +476,11 @@ public class UserServiceImpl implements UserDAO {
 			//pstmt.setInt(1,0);
 			
 			pstmt.setInt(1, 2);
-			pstmt.setInt(2, (int)userId2);
+			pstmt.setInt(2, (int)userId1);
 			pstmt.setInt(3, (int)userId1);
 			pstmt.setInt(4, (int)userId2);
+			pstmt.setInt(5, (int)userId2);
+			pstmt.setInt(6, (int)userId1);
 			
 			
 			rowUpdated = pstmt.executeUpdate();
@@ -495,12 +499,8 @@ public class UserServiceImpl implements UserDAO {
 	@Override
 	public boolean blockUser(long userId1, long userId2) {
 		// TODO Auto-generated method stub
-		if(userId1>userId2) {
-			long temp=userId1;
-			userId1=userId2;
-			userId2=temp;
-		}
-		String sql = "update relationship set status=?, actionId=? where userId1=? and userId2=?";
+		
+		String sql = "update relationship set status=?, actionId=? where ((userId1=? and userId2=?) or(userId1=? and userId2=?))";
 
 		PreparedStatement pstmt = null;
 		int rowUpdated = 0;
@@ -511,9 +511,11 @@ public class UserServiceImpl implements UserDAO {
 			//pstmt.setInt(1,0);
 			
 			pstmt.setInt(1, 3);
-			pstmt.setInt(2, (int)userId2);
+			pstmt.setInt(2, (int)userId1);
 			pstmt.setInt(3, (int)userId1);
 			pstmt.setInt(4, (int)userId2);
+			pstmt.setInt(5, (int)userId2);
+			pstmt.setInt(6, (int)userId1);
 			
 			
 			rowUpdated = pstmt.executeUpdate();

@@ -28,10 +28,6 @@ public class Application {
 		
 		//userService.viewBlockedUsers(201).forEach(System.out::println);
 		
-		ArrayList<User> userList=new ArrayList<User>();
-		System.out.println(adminService.deleteUser(201));
-		
-		userList.forEach(System.out::println);
 		
 		
 		//System.out.println(adminService.enableUser(303));
@@ -39,21 +35,22 @@ public class Application {
 		//System.out.println(adminService.deleteUser(304));
 		//System.out.println(userList);
 		//User bats=userService.findUser("batman");
-//		System.out.println(userService.sendRequest(301, 308));
+		//System.out.println(userService.sendRequest(303, 308));
 //		System.out.println(userService.sendRequest(301, 302));
 //		System.out.println(userService.sendRequest(301, 303));
 //		System.out.println(userService.sendRequest(302, 307));
 //		System.out.println(userService.sendRequest(303, 306));
-//		System.out.println(userService.acceptRequest(301, 308));
+//		System.out.println(userService.acceptRequest(308, 303));
 //		System.out.println(userService.acceptRequest(301, 302));
 //		System.out.println(userService.acceptRequest(302, 307));
 //		System.out.println(userService.acceptRequest(303, 306));
-//      System.out.println(userService.declineRequest(1, 301));
-//		System.out.println(userService.blockUser(308, 301));
+//      System.out.println(userService.declineRequest(307, 303));
+//		System.out.println(userService.blockUser(303, 302));
 //		System.out.println(userService.blockUser(303, 301));
 //		System.out.println(userService.blockUser(303, 306));
+//		adminService.viewUsersToDisable().forEach(System.out::println);
 		//System.out.println(bats);
-		userService.viewFriendRequests(303).forEach(System.out::println);
+		
 	}
 
 }

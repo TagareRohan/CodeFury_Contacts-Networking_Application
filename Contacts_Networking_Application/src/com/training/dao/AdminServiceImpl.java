@@ -69,7 +69,7 @@ public class AdminServiceImpl implements AdminServices{
 	public ArrayList<User> showAllUsers() {
 		// TODO Auto-generated method stub
 		String sql = "select id,city,state,country from users";
-		
+		this.userList.clear();
 		PreparedStatement pstmt = null;
 		
 		try {
@@ -190,7 +190,57 @@ public class AdminServiceImpl implements AdminServices{
 	@Override
 	public Collection<User> viewUsersToDisable() {
 		// TODO Auto-generated method stub
-		return null;
+		String sql = "select users.id,users.city,users.state,users.country from users where id in"
+				+ "(select blockedusers.userid from "
+				+ "(select userid1 as userid from relationship where status=3 and "
+				+ "userid1!=actionid union all select userid2 as userid from relationship where "
+				+ "status=3 and userid2!=actionid) as blockedusers group by userid having count(blockedusers.userid)>3)";
+		
+		this.userList.clear();
+		PreparedStatement pstmt = null;
+		
+		
+		try {
+			
+			pstmt = this.derbyConnection.prepareStatement(sql);
+			
+			ResultSet result = pstmt.executeQuery();
+			
+			ResultSetMetaData metaData = result.getMetaData();
+			
+			int columnCount = metaData.getColumnCount();
+			
+			for(int i = 1; i<=columnCount; i++) {
+				System.out.println("========= Columm:="+metaData.getColumnName(i));
+			}
+			
+			DatabaseMetaData dbInfo = this.derbyConnection.getMetaData();
+			
+			System.out.println("Drvier Name:="+dbInfo.getDriverName());
+			System.out.println("Product Version:="+dbInfo.getDatabaseProductVersion());
+			
+			while(result.next()) {
+			
+				
+				long id=(long)result.getInt("id");
+				String city=result.getString("city");
+				String state=result.getString("state");
+				String country=result.getString("country");
+				
+				
+				
+				
+				User user=new User(null, null, 0, null, null, null, city, state, country, null, null, null, id);
+				
+				
+				this.userList.add(user);
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return this.userList;
 	}
 
 
