@@ -4,6 +4,7 @@
 package com.training.ifaces;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.training.entity.Person;
 import com.training.entity.User;
@@ -19,4 +20,5 @@ public interface AdminDao {
 	boolean deleteUser(int id);
 	Collection<User> showSummary();
 	Collection<User> viewUsersToDisable();
+	Collection<User> viewUsersToDelete();
 }

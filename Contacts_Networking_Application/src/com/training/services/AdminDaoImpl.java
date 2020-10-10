@@ -9,12 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import com.training.entity.Person;
 import com.training.entity.User;
 import com.training.ifaces.AdminDao;
+import com.training.utils.ConnectionUtility;
 
 /**
  * @author manan
@@ -25,6 +27,15 @@ public class AdminDaoImpl implements AdminDao {
 	List<User> userList;
 	Connection derbyConnection;
 	
+	/**
+	 * 
+	 */
+	public AdminDaoImpl() {
+		super();
+		this.derbyConnection = ConnectionUtility.getDerbyConnection();
+		this.userList = new ArrayList<>();
+	}
+
 	@Override
 	public boolean disableUser(int id) {
 		// TODO Add code to disable user by checking the no. of times he has been blocked from relationship table.
@@ -138,6 +149,12 @@ public class AdminDaoImpl implements AdminDao {
 
 	@Override
 	public Collection<User> viewUsersToDisable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<User> viewUsersToDelete() {
 		// TODO Auto-generated method stub
 		return null;
 	}

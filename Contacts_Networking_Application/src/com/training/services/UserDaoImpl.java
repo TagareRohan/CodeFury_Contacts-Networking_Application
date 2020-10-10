@@ -45,12 +45,6 @@ public class UserDaoImpl implements UserDao {
 		this.derbyConnection = ConnectionUtility.getDerbyConnection();
 	}
 	
-	
-	private Person getObjFromId(int id) {
-		//TODO Add code to get User object from ID.
-		return null;
-		
-	}
 
 	@Override
 	public boolean addContact(int id, Contact contact) {
