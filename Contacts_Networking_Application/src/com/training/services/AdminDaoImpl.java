@@ -1,4 +1,4 @@
-package services;
+package com.training.services;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;

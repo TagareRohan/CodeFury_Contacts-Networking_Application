@@ -13,9 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.training.models.User;
-
-import services.AdminDaoImpl;
-import services.VerificationService;
+import com.training.services.AdminDaoImpl;
+import com.training.services.VerificationService;
 
 /**
  * Servlet implementation class AdminServlet

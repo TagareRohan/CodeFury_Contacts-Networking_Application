@@ -1,4 +1,4 @@
-package services;
+package com.training.services;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;

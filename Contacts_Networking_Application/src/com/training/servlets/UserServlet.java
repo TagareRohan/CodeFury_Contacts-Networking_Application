@@ -16,9 +16,8 @@ import javax.servlet.http.HttpSession;
 
 import com.training.models.Contact;
 import com.training.models.User;
-
-import services.UserDaoImpl;
-import services.VerificationService;
+import com.training.services.UserDaoImpl;
+import com.training.services.VerificationService;
 
 /**
  * Servlet implementation class UserServlet

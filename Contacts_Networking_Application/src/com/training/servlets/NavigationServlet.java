@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.training.models.User;
-
-import services.VerificationService;
+import com.training.services.VerificationService;
 
 /**
  * Servlet implementation class NavigationServlet

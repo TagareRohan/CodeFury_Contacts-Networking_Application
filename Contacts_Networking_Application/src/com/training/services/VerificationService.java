@@ -1,4 +1,4 @@
-package services;
+package com.training.services;
 
 import com.training.ifaces.Verification;
 import com.training.models.Admin;
