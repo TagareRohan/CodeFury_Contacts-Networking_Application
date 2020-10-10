@@ -148,6 +148,17 @@ public class UserServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				
 			}
+			if(request.getParameter("unBlockUser").equals("unBlockUser"))
+			{
+				int blockId=Integer.parseInt(request.getParameter("userId"));
+				
+				service.unblockUser((Integer)session.getAttribute("userId"),blockId);
+				
+				request.setAttribute("result","Operation successful");
+				dispatcher=request.getRequestDispatcher("userResult.jsp");
+				dispatcher.forward(request, response);
+				
+			}
 			if(request.getParameter("sendRequest").equals("sendRequest"))
 			{
 				int friendId=Integer.parseInt(request.getParameter("userId"));
