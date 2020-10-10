@@ -46,6 +46,8 @@ public class UserService {
 			
 			
 			pstmt.setString(1, user.getName());
+			
+			//converting password into Md5 encrpyted string using MD5 before storing it to database
 			pstmt.setString(2, getMd5(user.getPw()) );
 			
 			rowUpdated = pstmt.executeUpdate();
@@ -94,6 +96,9 @@ public class UserService {
 				 
 				String name = result.getString("name");
 				String pw = result.getString("pw");
+				
+				
+				//Checking if the provided password produces same encryption as stored in database
 				String secure = getMd5(pass);
 				if(pw.equals(secure))
 				{
@@ -116,6 +121,11 @@ public class UserService {
 		if(flag==false)System.out.println("Password wrong");
 		return user;
 	} 
+	
+	
+	// Method for encryption using MD5
+/////////////////////////////////////////////////////
+	
 	
 	public static String getMd5(String input) 
     { 
