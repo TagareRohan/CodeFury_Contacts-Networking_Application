@@ -11,6 +11,7 @@ import java.util.Objects;
  */
 public class Admin {
 
+	private int adminId;
 	private String fullName;
 	private String email;
 	private long phoneNumber;
@@ -26,14 +27,16 @@ public class Admin {
 	}
 
 	/**
+	 * @param adminId
 	 * @param fullName
 	 * @param email
 	 * @param phoneNumber
 	 * @param username
 	 * @param password
 	 */
-	public Admin(String fullName, String email, long phoneNumber, String username, String password) {
+	public Admin(int adminId, String fullName, String email, long phoneNumber, String username, String password) {
 		super();
+		this.adminId = adminId;
 		this.fullName = fullName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;

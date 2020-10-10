@@ -276,9 +276,72 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Collection<Person> viewBlockedUsers() {
+	public Collection<User> viewBlockedUsers(int userId) {
 		// TODO view all user blocked by a user.
-		return null;
+		String sql = " select * from users where username in( SELECT users.username from users inner join "
+				+ "relationship on (users.id=relationship.userid1) where userid2=? and relationship.status=3 union  "
+				+ "SELECT users.username from users inner join relationship on (users.id=relationship.userid2) "
+				+ "where userid1=? and relationship.status=3 )";
+		Set<User> sortedFriends=new TreeSet<>(new NameComparator());
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			pstmt = this.derbyConnection.prepareStatement(sql);
+			pstmt.setInt(1, userId);
+			pstmt.setInt(2, userId);
+			ResultSet result = pstmt.executeQuery();
+			
+			ResultSetMetaData metaData = result.getMetaData();
+			
+			int columnCount = metaData.getColumnCount();
+			
+			for(int i = 1; i<=columnCount; i++) {
+				System.out.println("========= Columm:="+metaData.getColumnName(i));
+			}
+			
+			DatabaseMetaData dbInfo = this.derbyConnection.getMetaData();
+			
+			System.out.println("Drvier Name:="+dbInfo.getDriverName());
+			System.out.println("Product Version:="+dbInfo.getDatabaseProductVersion());
+			
+			
+			
+			while(result.next()) {
+			
+				int id=result.getInt("id");
+				String fullName = result.getString("fullName");
+				String email=result.getString("email");
+				long phoneNumber=result.getLong("phoneNumber");
+				String gender=result.getString("gender");
+				LocalDate dateOfBirth=result.getDate("dateOfBirth").toLocalDate();
+				String address=result.getString("address");
+				String city=result.getString("city");
+				String state=result.getString("state");
+				String country=result.getString("country");
+				String company=result.getString("company");
+				Blob image=result.getBlob("image");
+				String username=result.getString("username");
+				
+				
+				byte barr[]=image.getBytes(1,(int)image.length());//1 means first image  
+	              
+				//FileOutputStream fout=new FileOutputStream("D:\\HSBC\\CodeFury\\CodeFury_Contacts-Networking_Application\\Contacts_Networking_Application\\sonoo.jpg");  
+				//fout.write(barr);  
+				              
+				//fout.close();  
+				
+				User user=new User(fullName, email, phoneNumber, gender, dateOfBirth, 
+									address, city, state, country, company, barr, id, username);
+				
+				
+				sortedFriends.add(user);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sortedFriends;
 	}
 
 	@Override
@@ -396,8 +459,6 @@ public class UserDaoImpl implements UserDao {
 		java.sql.PreparedStatement pstmt = null;
 		
 		int result = 0;
-		
-		User user=null;
 		
 		try {
 			pstmt = this.derbyConnection.prepareStatement(sql);

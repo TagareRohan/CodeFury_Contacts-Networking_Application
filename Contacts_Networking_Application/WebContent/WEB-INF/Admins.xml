@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Admins>
+	<Admin id="1">
+		<adminFullName>Pallavi</adminFullName>
+		<adminEmail>r.pallavi@gmail.com</adminEmail>
+		<adminPhoneNumber>1122339980</adminPhoneNumber>
+		<adminUserName>rPallavi</adminUserName>
+		<adminPassword>12345</adminPassword>
+	</Admin>
+	<Admin id="2">
+		<adminFullName>Rohan Tagare</adminFullName>
+		<adminEmail>t.rohan@gmail.com</adminEmail>
+		<adminPhoneNumber>9998887770</adminPhoneNumber>
+		<adminUserName>tRohan</adminUserName>
+		<adminPassword>67890</adminPassword>
+	</Admin>
+	<Admin id="3">
+		<adminFullName>Manan</adminFullName>
+		<adminEmail>c.manan@gmail.com</adminEmail>
+		<adminPhoneNumber>6655442288</adminPhoneNumber>
+		<adminUserName>cManan</adminUserName>
+		<adminPassword>54321</adminPassword>
+	</Admin>
+</Admins>

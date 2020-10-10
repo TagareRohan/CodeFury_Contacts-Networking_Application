@@ -21,7 +21,7 @@ public interface UserDao {
 	Collection<Contact> viewContacts(User user);
 	Collection<User> viewFriends(int id);
 	Person searchUser(String nameEmail);
-	Collection<Person> viewBlockedUsers();
+	Collection<User> viewBlockedUsers(int userId);
 	boolean sendRequest(int userId1, int userId2);
 	boolean addFriend(int userId1, int userId2);
 	boolean blockUser(int userId1, int userId2);
