@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.training.models.Contact;
+import com.training.models.Person;
 import com.training.models.User;
 import com.training.services.UserDaoImpl;
 import com.training.services.VerificationService;
@@ -70,10 +71,16 @@ public class UserServlet extends HttpServlet {
 			}
 			else if(userAction.equals("viewFriendRequests"))
 			{
+				Collection<User> friendRequests=service.viewFriendRequests((Integer)session.getAttribute("sessionId"));
 				
+				request.setAttribute("friendRequests", friendRequests);
+				
+				dispatcher=request.getRequestDispatcher("viewFriendRequests.jsp");
+				dispatcher.forward(request, response);
 			}
 			else if(userAction.equals("searchUser"))
 			{
+				
 				dispatcher=request.getRequestDispatcher("searchUser.jsp");
 				dispatcher.forward(request, response);
 			}
@@ -141,7 +148,25 @@ public class UserServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				
 			}
-			if(request.getParameter("friendRequest").equals("friendRequest"))
+			if(request.getParameter("sendRequest").equals("sendRequest"))
+			{
+				int friendId=Integer.parseInt(request.getParameter("userId"));
+				
+				service.sendRequest((Integer)session.getAttribute("sessionId"),friendId);
+				request.setAttribute("result","Operation successful");
+				dispatcher=request.getRequestDispatcher("userResult.jsp");
+				dispatcher.forward(request, response);
+			}
+			if(request.getParameter("declineRequest").equals("declineRequest"))
+			{
+				int friendId=Integer.parseInt(request.getParameter("userId"));
+				
+				service.declineRequest((Integer)session.getAttribute("sessionId"),friendId);
+				request.setAttribute("result","Operation successful");
+				dispatcher=request.getRequestDispatcher("userResult.jsp");
+				dispatcher.forward(request, response);
+			}
+			if(request.getParameter("addFriend").equals("addFriend"))
 			{
 				int friendId=Integer.parseInt(request.getParameter("userId"));
 				
@@ -152,7 +177,16 @@ public class UserServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				
 			}
-			
+			if(request.getParameter("searchUser").equals("searchUser"))
+			{
+				String name=request.getParameter("userName");
+				
+				Person user=service.searchUser(name);
+				
+				request.setAttribute("userInfo", user);
+				dispatcher=request.getRequestDispatcher("userInfo.jsp");
+				dispatcher.forward(request, response);
+			}
 			
 			if(request.getParameter("backToHome").equals("backToHome"))
 			{

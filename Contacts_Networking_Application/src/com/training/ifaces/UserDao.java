@@ -24,5 +24,6 @@ public interface UserDao {
 	
 	boolean sendRequest(int userId1, int userId2);
 	boolean declineRequest(int userId1, int userId2);
+	Set<User> viewFriendRequests(int userId);
 	
 }
