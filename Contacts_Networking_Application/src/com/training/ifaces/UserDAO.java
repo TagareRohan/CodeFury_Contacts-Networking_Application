@@ -19,8 +19,11 @@ public interface UserDAO {
 	public User findUser(String userName);
 	public boolean addContact(Contact contact);
 	public boolean editContact(Contact contact);
+	public Contact searchContact(long userId,String contactName);
+	public boolean deleteContact(long userId,String contactName);
 	Set<Contact> viewContacts(User user);
 	Set<User> viewFriends(long id);
 	Set<User> viewBlockedUsers(long userId);
+	Set<User> viewFriendRequests(long userId);
 	
 }

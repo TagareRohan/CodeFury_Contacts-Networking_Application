@@ -26,10 +26,10 @@ public class Application {
 //				"Somewhere in Amazon", "Amazon", "Nebraska", "US", "Justice League", null);
 //		System.out.println(userService.addContact(contact));
 		
-		userService.viewBlockedUsers(201).forEach(System.out::println);
+		//userService.viewBlockedUsers(201).forEach(System.out::println);
 		
 		ArrayList<User> userList=new ArrayList<User>();
-		
+		System.out.println(adminService.deleteUser(201));
 		
 		userList.forEach(System.out::println);
 		
@@ -39,11 +39,21 @@ public class Application {
 		//System.out.println(adminService.deleteUser(304));
 		//System.out.println(userList);
 		//User bats=userService.findUser("batman");
-		//System.out.println(userService.sendRequest(301, 308));
-		//System.out.println(userService.acceptRequest(301, 308));
-        //System.out.println(userService.declineRequest(201, 301));
-		//System.out.println(userService.blockUser(201, 303));
+//		System.out.println(userService.sendRequest(301, 308));
+//		System.out.println(userService.sendRequest(301, 302));
+//		System.out.println(userService.sendRequest(301, 303));
+//		System.out.println(userService.sendRequest(302, 307));
+//		System.out.println(userService.sendRequest(303, 306));
+//		System.out.println(userService.acceptRequest(301, 308));
+//		System.out.println(userService.acceptRequest(301, 302));
+//		System.out.println(userService.acceptRequest(302, 307));
+//		System.out.println(userService.acceptRequest(303, 306));
+//      System.out.println(userService.declineRequest(1, 301));
+//		System.out.println(userService.blockUser(308, 301));
+//		System.out.println(userService.blockUser(303, 301));
+//		System.out.println(userService.blockUser(303, 306));
 		//System.out.println(bats);
+		userService.viewFriendRequests(303).forEach(System.out::println);
 	}
 
 }

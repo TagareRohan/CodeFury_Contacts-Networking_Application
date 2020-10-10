@@ -153,8 +153,10 @@ public class AdminServiceImpl implements AdminServices{
 
 
 	@Override
-	public boolean deleteUser(long i) {
+	public boolean deleteUser(long id) {
 		// TODO Auto-generated method stub
+		
+		
 		
 		String sql = "delete from users where id = ?";
 		
@@ -167,9 +169,11 @@ public class AdminServiceImpl implements AdminServices{
 		try {
 			pstmt = this.derbyConnection.prepareStatement(sql);
 			
-			pstmt.setInt(1, (int)i);
-						
+			pstmt.setInt(1, (int)id);
+			deleteRelationship(id);
+			deleteUserFromContacts(id);	
 			result = pstmt.executeUpdate();
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -177,6 +181,77 @@ public class AdminServiceImpl implements AdminServices{
 		}
 		
 		return result == 1 ? true : false;
+	}
+
+
+
+
+
+	@Override
+	public Collection<User> viewUsersToDisable() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+
+
+	@Override
+	public boolean deleteRelationship(long id) {
+		// TODO Auto-generated method stub
+		String sql = "delete from relationship where (userId1=? or userId2=?)";
+		
+		java.sql.PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		
+		
+		try {
+			pstmt = this.derbyConnection.prepareStatement(sql);
+			
+			pstmt.setInt(1, (int)id);
+			pstmt.setInt(2, (int)id);
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result==1 ? true:false; 
+	}
+
+
+
+
+
+	@Override
+	public boolean deleteUserFromContacts(long id) {
+		// TODO Auto-generated method stub
+		String sql = "delete from contacts where userId=?";
+		
+		java.sql.PreparedStatement pstmt = null;
+		
+		int result = 0;
+		
+		
+		
+		try {
+			pstmt = this.derbyConnection.prepareStatement(sql);
+			
+			pstmt.setInt(1, (int)id);
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result==1 ? true:false; 
 	}
 
 	
