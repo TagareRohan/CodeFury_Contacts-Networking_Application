@@ -53,7 +53,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean addContact(User user, Contact contact) {
+	public boolean addContact(int id, Contact contact) {
 		// TODO Add code to update to add contact to contact table.
 		String sql = "insert into contacts(userid,fullName,email,phoneNumber,gender,dateOfBirth,address,"
 				+ "city,state,country,company,image) "
@@ -66,7 +66,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			pstmt = this.derbyConnection.prepareStatement(sql);
 			
-			pstmt.setInt(1, user.getId());
+			pstmt.setInt(1, id);
 			pstmt.setString(2, contact.getFullName());
 			pstmt.setString(3, contact.getEmail());
 			pstmt.setLong(4, contact.getPhoneNumber());
@@ -92,7 +92,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Collection<Contact> viewContacts(User user) {
+	public Collection<Contact> viewContacts(int id) {
 		// TODO View all contacts related to user.
 		TreeSet<Contact> contacts=new TreeSet<>(new NameComparator());
 		String sql = "select * from contacts where userid=?";
@@ -102,7 +102,7 @@ public class UserDaoImpl implements UserDao {
 		try {
 			
 			pstmt = this.derbyConnection.prepareStatement(sql);
-			pstmt.setInt(1, user.getId());
+			pstmt.setInt(1, id);
 			ResultSet result = pstmt.executeQuery();
 			
 //			ResultSetMetaData metaData = result.getMetaData();
@@ -172,18 +172,18 @@ public class UserDaoImpl implements UserDao {
 			pstmt.setInt(2, userId);
 			ResultSet result = pstmt.executeQuery();
 			
-			ResultSetMetaData metaData = result.getMetaData();
-			
-			int columnCount = metaData.getColumnCount();
-			
-			for(int i = 1; i<=columnCount; i++) {
-				System.out.println("========= Columm:="+metaData.getColumnName(i));
-			}
-			
-			DatabaseMetaData dbInfo = this.derbyConnection.getMetaData();
-			
-			System.out.println("Drvier Name:="+dbInfo.getDriverName());
-			System.out.println("Product Version:="+dbInfo.getDatabaseProductVersion());
+//			ResultSetMetaData metaData = result.getMetaData();
+//			
+//			int columnCount = metaData.getColumnCount();
+//			
+//			for(int i = 1; i<=columnCount; i++) {
+//				System.out.println("========= Columm:="+metaData.getColumnName(i));
+//			}
+//			
+//			DatabaseMetaData dbInfo = this.derbyConnection.getMetaData();
+//			
+//			System.out.println("Drvier Name:="+dbInfo.getDriverName());
+//			System.out.println("Product Version:="+dbInfo.getDatabaseProductVersion());
 			
 			while(result.next()) {
 			
@@ -345,49 +345,6 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public boolean registerUser(User user) {
-		// TODO you should know what to do here
-		String sql = "insert into users(fullName, email, phoneNumber, gender, dateOfBirth, address, city, state, country, company, image, username, password) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
-		PreparedStatement pstmt = null;
-		InputStream imageInputStream = new ByteArrayInputStream(user.getImage());
-		int rowUpdated = 0;
-		
-		try {
-			pstmt = this.derbyConnection.prepareStatement(sql);
-			
-			pstmt.setString(1, user.getFullName());
-			pstmt.setString(2, user.getEmail());
-			pstmt.setLong(3, user.getPhoneNumber());
-			pstmt.setString(4, user.getGender());
-			pstmt.setDate(5, Date.valueOf(user.getDateOfBirth()));
-			pstmt.setString(6, user.getAddress());
-			pstmt.setString(7, user.getCity());
-			pstmt.setString(8, user.getState());
-			pstmt.setString(9, user.getCountry());
-			pstmt.setString(10, user.getCompany());
-			pstmt.setBlob(11,imageInputStream);
-			pstmt.setString(12, user.getUsername());
-			
-			rowUpdated = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			
-		}
-		
-		return rowUpdated==1 ? true:false;
-	}
-
-	@Override
-	public boolean loginUser(String username, String password) {
-		// TODO if you dont know what to do here you should not be editing this code
-		return false;
-	}
-
-	@Override
 	public boolean sendRequest(int userId1, int userId2) {
 		// TODO send a friend request from user1 to user2
 		String sql = "insert into relationship "
@@ -537,6 +494,42 @@ public class UserDaoImpl implements UserDao {
 
 		return rowUpdated==1 ? true:false;
 		
+	}
+
+
+	@Override
+	public boolean editContact(int id, Contact contact) {
+//		String sql = "insert into contacts(userid,fullName,email,phoneNumber,gender,dateOfBirth,address,"
+//				+ "city,state,country,company,image) "
+//				+ "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+		
+		String sql = "update contacts set phoneNumber=?,gender=?,dateOfBirth=?,address=?,city=?,state=?,country=?,company=?,image=? where email = ?";
+		
+		PreparedStatement pstmt = null;
+		InputStream imageInputStream = new ByteArrayInputStream(contact.getImage());
+		int rowUpdated = 0;
+		
+		try {
+			pstmt = this.derbyConnection.prepareStatement(sql);
+			
+			pstmt.setLong(1, contact.getPhoneNumber());
+			pstmt.setString(2, contact.getGender());
+			pstmt.setDate(3, Date.valueOf(contact.getDateOfBirth()));
+			pstmt.setString(4, contact.getAddress());
+			pstmt.setString(5, contact.getCity());
+			pstmt.setString(6, contact.getState());
+			pstmt.setString(7, contact.getCountry());
+			pstmt.setString(8, contact.getCompany());
+			pstmt.setBlob(9,imageInputStream);
+			pstmt.setString(10, contact.getEmail());
+			
+			rowUpdated = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.err.println("Contact could not be updated. " + e.getMessage());
+		}
+		
+		return rowUpdated==1 ? true:false;
 	}
 
 }

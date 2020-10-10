@@ -15,10 +15,8 @@ import com.training.entity.User;
  */
 public interface UserDao {
 
-	boolean registerUser(User user);
-	boolean loginUser(String username, String password);
-	boolean addContact(User user, Contact contact);
-	Collection<Contact> viewContacts(User user);
+	boolean addContact(int id, Contact contact);
+	Collection<Contact> viewContacts(int id);
 	Collection<User> viewFriends(int id);
 	Person searchUser(String nameEmail);
 	Collection<User> viewBlockedUsers(int userId);
@@ -27,5 +25,6 @@ public interface UserDao {
 	boolean blockUser(int userId1, int userId2);
 	boolean unblockUser(int userId1, int userId2);
 	boolean declineRequest(int userId1, int userId2);
+	boolean editContact(int id, Contact contact);
 	
 }
