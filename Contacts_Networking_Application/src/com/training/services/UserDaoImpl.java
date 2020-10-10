@@ -6,6 +6,7 @@ package com.training.services;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -55,6 +56,18 @@ public class UserDaoImpl implements UserDao {
 
 		PreparedStatement pstmt = null;
 		InputStream imageInputStream = new ByteArrayInputStream(contact.getImage());
+		try {
+			if (imageInputStream.available() == 0) {
+				try {
+					imageInputStream = new FileInputStream("profile.png");
+				} catch (FileNotFoundException e1) {
+					System.err.println("File not found exception."  + e1.getMessage());
+				}
+			}
+		} catch (IOException e1) {
+			System.err.println("IO exception."  + e1.getMessage());
+		}
+		
 		int rowUpdated = 0;
 
 		try {

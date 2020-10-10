@@ -20,6 +20,7 @@ import org.xml.sax.SAXException;
 
 import com.training.entity.Admin;
 import com.training.entity.User;
+import com.training.ifaces.UserDao;
 import com.training.ifaces.Verification;
 import com.training.utils.AdminParser;
 import com.training.utils.ConnectionUtility;
@@ -30,6 +31,7 @@ import com.training.utils.ConnectionUtility;
  */
 public class VerificationService implements Verification {
 	
+	UserDao userService = null;
 	Connection derbyConnection = null;
 
 	/**
@@ -38,6 +40,7 @@ public class VerificationService implements Verification {
 	public VerificationService() {
 		super();
 		this.derbyConnection = ConnectionUtility.getDerbyConnection();
+		this.userService = new UserDaoImpl();
 	}
 
 	@Override
@@ -96,9 +99,14 @@ public class VerificationService implements Verification {
 	}
 
 	@Override
-	public boolean registerUser(User user) {
+	public boolean registerUser(User user) throws Exception {
 		String sql = "insert into users(fullName, email, phoneNumber, gender, dateOfBirth, address, city, state, country, company, image, username, password) values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
+		User tempUser = (User) userService.searchUser(user.getEmail());
+		if (tempUser != null) {
+			System.err.println("User already exists with the same email.");
+			throw new Exception("User already exists with the same email.");
+		}
 		PreparedStatement pstmt = null;
 		InputStream imageInputStream = new ByteArrayInputStream(user.getImage());
 		int rowUpdated = 0;
@@ -124,8 +132,6 @@ public class VerificationService implements Verification {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
-			
 		}
 		
 		return rowUpdated==1 ? true:false;

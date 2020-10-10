@@ -39,31 +39,43 @@ public class AdminDaoImpl implements AdminDao {
 	@Override
 	public boolean disableUser(int id) {
 		// TODO Add code to disable user by checking the no. of times he has been blocked from relationship table.
-		String sql = "update users set disabled=? where Id=?";
-
+		String sql = "select email from users where id=?";
+		String sql1 = "insert into disabled(userid, email) values (?, ?)";
+		String userEmail = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		ResultSet resultEmail = null;
 		int rowUpdated = 0;
+		boolean delete = false;
 
 		try {
 			pstmt = this.derbyConnection.prepareStatement(sql);
-	
-			//pstmt.setInt(1,0);
 			
-			pstmt.setInt(1, 1);
-			pstmt.setInt(2, (int)id);
+			pstmt.setInt(1, id);
 			
+			resultEmail = pstmt.executeQuery();
 			
+			if (resultEmail.next()) {
+				userEmail = resultEmail.getString("email");
+			}
 			
-			rowUpdated = pstmt.executeUpdate();
-	
+			pstmt1 = this.derbyConnection.prepareStatement(sql1);
+			
+			pstmt1.setInt(1, id);
+			pstmt1.setString(2, userEmail);
+			
+			rowUpdated = pstmt1.executeUpdate();
+			
+			delete = this.deleteUser(id);
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println(e.getMessage());
 		}finally {
 	
 		}
 
-		return rowUpdated==1 ? true:false;
+		return rowUpdated == 1 && delete == true ? true : false;
+		
 	}
 
 	@Override

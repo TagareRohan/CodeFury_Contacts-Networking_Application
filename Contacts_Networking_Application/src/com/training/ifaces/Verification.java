@@ -13,5 +13,5 @@ public interface Verification {
 
 	boolean verifyAdmin(String userName,String password);
 	int verifyUser(String userName,String password) throws Exception;
-	boolean registerUser(User user);
+	boolean registerUser(User user) throws Exception;
 }
