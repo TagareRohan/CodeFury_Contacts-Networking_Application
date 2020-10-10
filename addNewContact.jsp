@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Register</title>
+<title>Add Contact</title>
 <style>
 {box-sizing: border-box}
 .container {
@@ -26,7 +26,7 @@ hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
-.btn {
+.btn{
   background-color: grey;
   color: black;
   padding: 16px 20px;
@@ -36,7 +36,7 @@ hr {
   width: 100%;
   opacity: 0.9;
 }
-.btn:hover {
+.btn:hover{
   opacity:1;
 }
 a {
@@ -50,11 +50,12 @@ h1{
   text-align: center;
 }
 </style>
+
 </head>
-<body style="background-color:powderblue;" method="post">
-<form action="NavigationServlet" style="background-color:powderblue;">
+<body style="background-color:powderblue;">
+<form action="UserServlet" method="post">
   <div class="container">
-    <h1>Register</h1>
+    <h1 style="background-color:tomato; text-align: center;">Add New Contact</h1>
     <hr>
     <label for=fullName"><b>Full Name</b></label>
     <input type="text" placeholder="Enter full name" name="fullName" id="fullName" required>
@@ -86,21 +87,13 @@ h1{
   	
     <label for="company"><b>Company</b></label>
     <input type="text" placeholder="Enter Company" name="company" id="company" required>
-    <label for="userName"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="UserName" id="UserName" required>
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
-    <label for="psw-repeat"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
-    <label for="profPicture"><b>Upload image:</b></label><br>
-  	<input type="file" id="profPicture" name="profPicture" accept="image/*">
+     <label for="profPicture"><b>Upload image:</b></label><br>
+  		<input type="file" id="profPicture" name="profPicture" accept="image/*">
  		
     <hr>
-    <button type="submit"  type="submit" value="userSignup.jsp">Register</button>
-  </div>
-  
-  <div class="container signin">
-    <p>Already have an account?<button name="submit" type="submit" value="userLogin.jsp">Sign in</button>.</p>
+    <button type="submit" name="userAction" value="addNewContact">Add Contact</button>
+    
   </div>
 </form>
+</body>
 </html>
