@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.training.dao.Verification;
-import com.training.models.User;
+import com.training.services.VerificationService;
+import com.training.entity.User;
+import com.training.ifaces.Verification;
 
 /**
  * Servlet implementation class NavigationServlet
@@ -18,7 +19,7 @@ import com.training.models.User;
 @WebServlet("/NavigationServlet")
 public class NavigationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-//	Verification verify;
+	Verification verify;
 	
 	RequestDispatcher dispatcher=null;
        
@@ -65,12 +66,16 @@ public class NavigationServlet extends HttpServlet {
 		{
 			String userName=request.getParameter("userName");
 			String password=request.getParameter("password");
-			if(verify.verifyUser(userName, password))
-			{
-				
-				request.setAttribute("userName", userName);
-				dispatcher=request.getRequestDispatcher("userHome.jsp");
-				dispatcher.forward(request, response);
+			try {
+				if(verify.verifyUser(userName, password))
+				{
+					
+					request.setAttribute("userName", userName);
+					dispatcher=request.getRequestDispatcher("userHome.jsp");
+					dispatcher.forward(request, response);
+				}
+			} catch (Exception e) {
+				System.err.println(e.getMessage());
 			}
 		}
 		else if(login.equals("userSignUp"))

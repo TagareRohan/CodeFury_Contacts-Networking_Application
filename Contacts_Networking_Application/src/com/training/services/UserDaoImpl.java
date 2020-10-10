@@ -105,18 +105,18 @@ public class UserDaoImpl implements UserDao {
 			pstmt.setInt(1, user.getId());
 			ResultSet result = pstmt.executeQuery();
 			
-			ResultSetMetaData metaData = result.getMetaData();
+//			ResultSetMetaData metaData = result.getMetaData();
+//			
+//			int columnCount = metaData.getColumnCount();
+//			
+//			for(int i = 1; i<=columnCount; i++) {
+//				System.out.println("========= Columm:="+metaData.getColumnName(i));
+//			}
 			
-			int columnCount = metaData.getColumnCount();
-			
-			for(int i = 1; i<=columnCount; i++) {
-				System.out.println("========= Columm:="+metaData.getColumnName(i));
-			}
-			
-			DatabaseMetaData dbInfo = this.derbyConnection.getMetaData();
-			
-			System.out.println("Drvier Name:="+dbInfo.getDriverName());
-			System.out.println("Product Version:="+dbInfo.getDatabaseProductVersion());
+//			DatabaseMetaData dbInfo = this.derbyConnection.getMetaData();
+//			
+//			System.out.println("Drvier Name:="+dbInfo.getDriverName());
+//			System.out.println("Product Version:="+dbInfo.getDatabaseProductVersion());
 			
 			while(result.next()) {
 			

@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -64,9 +66,30 @@ public class VerificationService implements Verification {
 	}
 
 	@Override
-	public boolean verifyUser(String userName, String password) {
+	public boolean verifyUser(String userName, String password) throws Exception {
 		String sql = "select * from users where username=?";
-		return false;
+		PreparedStatement pstmt = null;
+		boolean verified = false;
+		
+		pstmt = this.derbyConnection.prepareStatement(sql);
+		pstmt.setString(1, userName);
+		
+		ResultSet result = pstmt.executeQuery();
+		
+		String passFromDb;
+		
+		if (result.next()) {
+			passFromDb = result.getString("password");
+		} else {
+			throw new Exception("User does not exists");
+		}
+		
+		if (passFromDb.equals(password)) {
+			verified = true;
+		} else {
+			verified = false;
+		}
+		return verified;
 	}
 
 	@Override

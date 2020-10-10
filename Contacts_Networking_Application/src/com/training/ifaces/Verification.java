@@ -12,6 +12,6 @@ import com.training.entity.User;
 public interface Verification {
 
 	boolean verifyAdmin(String userName,String password);
-	boolean verifyUser(String userName,String password);
+	boolean verifyUser(String userName,String password) throws Exception;
 	boolean registerUser(User user);
 }
