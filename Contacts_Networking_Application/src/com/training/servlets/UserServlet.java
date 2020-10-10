@@ -125,7 +125,7 @@ public class UserServlet extends HttpServlet {
 				String state=request.getParameter("state");
 				String country=request.getParameter("country");
 				String company=request.getParameter("company");
-				byte[] image=null;
+				byte[] image=request.getParameter("image").getBytes();
 				
 				service.addContact((Integer)session.getAttribute("sessionId"),
 						new Contact(fullName, email, phoneNumber, gender, dateOfBirth,

@@ -105,7 +105,7 @@ public class NavigationServlet extends HttpServlet {
 			String state=request.getParameter("state"); 
 			String country=request.getParameter("country");
 			String company=request.getParameter("company");
-			byte[] image=null;
+			byte[] image=request.getParameter("image").getBytes();
 			String password=request.getParameter("password");
 			
 			verify.registerUser(new User( fullName, 
