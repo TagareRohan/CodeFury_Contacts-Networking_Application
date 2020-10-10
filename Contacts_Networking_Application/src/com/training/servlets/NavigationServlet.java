@@ -1,6 +1,7 @@
 package com.training.servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.training.dao.Verification;
 import com.training.models.User;
+
+import services.VerificationService;
 
 /**
  * Servlet implementation class NavigationServlet
@@ -19,7 +21,7 @@ import com.training.models.User;
 @WebServlet("/NavigationServlet")
 public class NavigationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	Verification verify;
+	VerificationService verify;
 	HttpSession session;
 	
 	RequestDispatcher dispatcher=null;
@@ -67,12 +69,27 @@ public class NavigationServlet extends HttpServlet {
 		{
 			String userName=request.getParameter("userName");
 			String password=request.getParameter("password");
-			if(verify.verifyUser(userName, password))
+			
+			int flag=0;
+			try {
+				flag = verify.verifyUser(userName, password);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(flag!=0)
 			{
 				session=request.getSession(true);
+				session.setAttribute("sessionId", flag);
 				
 				request.setAttribute("userName", userName);
 				dispatcher=request.getRequestDispatcher("userHome.jsp");
+				dispatcher.forward(request, response);
+			}
+			else
+			{
+				dispatcher=request.getRequestDispatcher("index.html");
 				dispatcher.forward(request, response);
 			}
 		}
@@ -80,17 +97,22 @@ public class NavigationServlet extends HttpServlet {
 		{
 			String userName=request.getParameter("userName");
 			String fullName=request.getParameter("fullName");
+			String email=request.getParameter("email");
+			String gender=request.getParameter("gender");
+			long phoneNumber=Long.parseLong(request.getParameter("phoneNumber"));
+			LocalDate dateOfBirth=LocalDate.parse(request.getParameter("dateOfBirth"));
+			String address=request.getParameter("address");
+			String city=request.getParameter("city");
+			String state=request.getParameter("state"); 
+			String country=request.getParameter("country");
+			String company=request.getParameter("company");
+			byte[] image=null;
+			String password=request.getParameter("password");
 			
-			/*
-			 * ....
-			 *  ....
-			 *  
-			 *  set other fields as well
-			 */
-			
-			verify.registerUser(new User());
-			
-			request.setAttribute("userName", userName);
+			verify.registerUser(new User( fullName, 
+					 email,  phoneNumber,  gender, 
+					 dateOfBirth,  address, city, 
+					 state,  country,  company, image, userName,password));
 			
 			dispatcher=request.getRequestDispatcher("userLogin.jsp");
 			dispatcher.forward(request, response);
@@ -103,9 +125,15 @@ public class NavigationServlet extends HttpServlet {
 			if(verify.verifyAdmin(adminUserName,password))
 			{
 				session=request.getSession(true);
+				session.setAttribute("sessionId", adminUserName);
 						
 				request.setAttribute("userName", adminUserName);
 				dispatcher=request.getRequestDispatcher("adminHome.jsp");
+				dispatcher.forward(request, response);
+			}
+			else
+			{
+				dispatcher=request.getRequestDispatcher("index.html");
 				dispatcher.forward(request, response);
 			}
 			

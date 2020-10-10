@@ -1,7 +1,9 @@
 package com.training.servlets;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
+import java.util.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.training.dao.AdminServiceImpl;
-import com.training.dao.Verification;
+import com.training.models.User;
+
+import services.AdminDaoImpl;
+import services.VerificationService;
 
 /**
  * Servlet implementation class AdminServlet
@@ -19,16 +23,16 @@ import com.training.dao.Verification;
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	AdminServiceImpl service;
+	AdminDaoImpl service;
 	RequestDispatcher dispatcher;
-	Verification verify;
+	VerificationService verify;
 
     /**
      * Default constructor. 
      */
     public AdminServlet() {
         // TODO Auto-generated constructor stub
-    	service=new AdminServiceImpl();
+    	service=new AdminDaoImpl();
     }
 
 	/**
@@ -56,61 +60,90 @@ public class AdminServlet extends HttpServlet {
 		}
 		else
 		{
-			if(adminAction.equals("searchUser"))
+			if(adminAction.equals("showSummary"))
 			{
-				dispatcher=request.getRequestDispatcher("searchUser.jsp");
+				Collection<User> allUsers=service.showSummary();
+				
+				request.setAttribute("summary", allUsers);
+				
+				dispatcher=request.getRequestDispatcher("showSummary.jsp");
 				dispatcher.forward(request, response);
 			}
 			else if(adminAction.equals("disableUser"))
 			{
-				Map<String,String> userList=service.viewUsersToDisable();
-				request.setAttribute("disableList", userList);
+				Collection<User> userList=service.viewUsersToDisable();
+				
+				ArrayList<String> users=null;
+				
+				for(User use: userList)
+				{
+					users.add(use.getUsername());
+				}
+				
+				request.setAttribute("disableList", users);
 				
 				dispatcher=request.getRequestDispatcher("disableUser.jsp");
 				dispatcher.forward(request, response);
 			}
 			else if(adminAction.equals("deleteUser"))
 			{
-				Map<String,String> userList=service.viewUsersToDelete();
-				request.setAttribute("deleteList", userList);
+				Collection<User> userList=service.viewUsersToDelete();
+				
+				ArrayList<String> users=null;
+				
+				for(User use: userList)
+				{
+					users.add(use.getUsername());
+				}
+				
+				request.setAttribute("deleteList", users);
 				
 				dispatcher=request.getRequestDispatcher("deleteUser.jsp");
 				dispatcher.forward(request, response);
 			}
 			
-			if(request.getParameter("viewUser").equals("viewUser"))
-			{
-				String statistics=service.getStatistics();
-				
-				request.setAttribute("result", statistics);			
-				
-				dispatcher=request.getRequestDispatcher("viewStatistics.jsp");
-				dispatcher.forward(request, response);
-				
-			}
 			
 			if(request.getParameter("deleteUsers").equals("deleteUsers"))
 			{
 				String[] userList=request.getParameterValues("deleteList");
 				
-				for(String user: userList)
+				int[] userIdList=null;
+				
+				for(int i=0;i<userList.length;i++)
 				{
-					service.deleteUser(user);
+					userIdList[i]=Integer.parseInt(userList[i]);
 				}
 				
+				
+				for(int userId: userIdList)
+				{
+					service.deleteUser(userId);
+				}
+				
+				request.setAttribute("status", "operation successful");
 				dispatcher=request.getRequestDispatcher("adminResult.jsp");
-			}
+				dispatcher.forward(request, response);			}
 			
 			if(request.getParameter("disableUsers").equals("disableUsers"))
 			{
 				String[] userList=request.getParameterValues("disableList");
 				
-				for(String user: userList)
+				int[] userIdList=null;
+				
+				for(int i=0;i<userList.length;i++)
 				{
-					service.disableUser(user);
+					userIdList[i]=Integer.parseInt(userList[i]);
 				}
 				
+				
+				for(int userId: userIdList)
+				{
+					service.disableUser(userId);
+				}
+				
+				request.setAttribute("status", "operation successful");
 				dispatcher=request.getRequestDispatcher("adminResult.jsp");
+				dispatcher.forward(request, response);
 			}
 			
 			if(request.getParameter("backToHome").equals("backToHome"))
