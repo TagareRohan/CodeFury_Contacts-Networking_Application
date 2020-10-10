@@ -1,44 +1,47 @@
-/**
- * 
- */
 package com.training.entity;
 
 import java.util.Objects;
 
 /**
- * @author manan
+ * @author rpall
  *
  */
 public class Admin {
-
+	
+	private int adminId;
 	private String fullName;
 	private String email;
 	private long phoneNumber;
 	private String username;
 	private String password;
 	
-	/**
-	 * 
-	 */
 	public Admin() {
 		super();
 		
 	}
 
-	/**
-	 * @param fullName
-	 * @param email
-	 * @param phoneNumber
-	 * @param username
-	 * @param password
-	 */
-	public Admin(String fullName, String email, long phoneNumber, String username, String password) {
+	public Admin(int adminId, String fullName, String email, long phoneNumber, String username, String password) {
 		super();
+		this.adminId = adminId;
 		this.fullName = fullName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.username = username;
 		this.password = password;
+	}
+
+	/**
+	 * @return the adminId
+	 */
+	public int getAdminId() {
+		return adminId;
+	}
+
+	/**
+	 * @param adminId the adminId to set
+	 */
+	public void setAdminId(int adminId) {
+		this.adminId = adminId;
 	}
 
 	/**
@@ -113,7 +116,15 @@ public class Admin {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, fullName, phoneNumber, username);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + adminId;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + (int) (phoneNumber ^ (phoneNumber >>> 32));
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
 	}
 
 	@Override
@@ -125,15 +136,41 @@ public class Admin {
 		if (getClass() != obj.getClass())
 			return false;
 		Admin other = (Admin) obj;
-		return Objects.equals(email, other.email) && Objects.equals(fullName, other.fullName)
-				&& phoneNumber == other.phoneNumber && Objects.equals(username, other.username);
+		if (adminId != other.adminId)
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (fullName == null) {
+			if (other.fullName != null)
+				return false;
+		} else if (!fullName.equals(other.fullName))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (phoneNumber != other.phoneNumber)
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Admin [fullName=" + fullName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", username="
-				+ username + "]";
+		return "Admin [adminId=" + adminId + ", fullName=" + fullName + ", email=" + email + ", phoneNumber="
+				+ phoneNumber + ", username=" + username + ", password=" + password + "]";
 	}
+	
+
+	
 
 	
 
