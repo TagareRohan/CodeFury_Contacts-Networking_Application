@@ -10,7 +10,7 @@
         body {
             margin: 0px;
             padding: 0px;
-            background: url(Images/background.jpg);
+            background:#f08080;
             font-family: 'Oswald', sans-serif;       
               }
         .left {

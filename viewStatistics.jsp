@@ -7,7 +7,7 @@
 </head>
 <body style="background-color:powderblue;">
 <h1 style="background-color:tomato; text-align: center;">User Statistics</h1>
-<p>${viewStatistics}</p>
+<p>${summary}</p>
 <form action="AdminServlet" method="post">
 <button type="submit" name="adminAction" value="back">Back to Home</button>
 </form>

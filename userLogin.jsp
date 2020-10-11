@@ -45,7 +45,7 @@ hr {
 </style>
 </head>
 <body>
-<form action="UserServlet" method="post">
+<form action="NavigationServlet" method="post">
 
   <div class="container">
    <h1>Login</h1>
@@ -56,7 +56,7 @@ hr {
     <label for="password"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="password" required>
 	<hr>
-    <button type="submit">Login</button>
+    <button name="login" type="submit" value="userLogin">User Login</button>
   
   </div>
 </form>
