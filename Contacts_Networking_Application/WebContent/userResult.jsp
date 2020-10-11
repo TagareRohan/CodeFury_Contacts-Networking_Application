@@ -4,11 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>User Result</title>
 </head>
 <body>
 
- $ { result }
+
+<h1>User Result</h1>
+
+ ${ result }
  
  <form action="UserServlet" method="post">
 	
