@@ -61,7 +61,7 @@ h1{
     <label for="Email"><b>Email</b></label>
     <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="Enter email" name="email" id="email" required>
     <label for="PhoneNum"><b>Phone Number</b></label>
-    <input type="tel" placeholder="Enter Phone Number" name="phoneNumber" id="phoneNumber" required>
+    <input type="tel" placeholder="Enter Phone Number" name="phoneNumber" id="phoneNumber">
     <div>
 	    <p><b>Gender</b></p>
 	    <label for="male">Male</label>
@@ -72,16 +72,16 @@ h1{
 	  	<input type="radio" id="other" name="gender" value="other">
     </div><br>
     <label for="dateOfBirth"><b>Date of Birth</b></label>
-  	<input type="date"  placeholder="Enter Date of Birth" id="dateOfBirth" name="dateOfBirth" required>
+  	<input type="date"  placeholder="Enter Date of Birth" id="dateOfBirth" name="dateOfBirth">
   	<div>
   		<label for="address"><b>Address</b></label>
-	  	<input type="text"  placeholder="Enter address" id="address" name="address" required>
+	  	<input type="text"  placeholder="Enter address" id="address" name="address">
 	  	<label for="city">City</label>
-	  	<input type="text"  placeholder="Enter city" id="city" name="city" required>
+	  	<input type="text"  placeholder="Enter city" id="city" name="city">
 	  	<label for="state">State</label>
-	  	<input type="text"  placeholder="Enter state" id="state" name="state" required>
+	  	<input type="text"  placeholder="Enter state" id="state" name="state">
 	  	<label for="country">Country</label>
-	  	<input type="text"  placeholder="Enter country" id="country" name="country" required>
+	  	<input type="text"  placeholder="Enter country" id="country" name="country">
   	</div>
   	
     <label for="company"><b>Company</b></label>
