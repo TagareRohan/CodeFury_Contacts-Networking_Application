@@ -223,8 +223,9 @@ public class UserServlet extends HttpServlet {
 			{
 				String name=request.getParameter("userName");
 				
-				Person user=service.searchUser(name);
+				User user=(User) service.searchUser(name);
 				
+//				request.setAttribute("userid", user.getId());
 				request.setAttribute("userInfo", user);
 				dispatcher=request.getRequestDispatcher("userInfo.jsp");
 				dispatcher.forward(request, response);
