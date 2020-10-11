@@ -79,11 +79,11 @@ public class AdminServlet extends HttpServlet {
 			{
 				Collection<User> userList=service.viewUsersToDisable();
 				
-				ArrayList<String> users=null;
+				ArrayList<Integer> users=new ArrayList<>();
 				
 				for(User use: userList)
 				{
-					users.add(use.getUsername());
+					users.add(use.getId());
 				}
 				
 				request.setAttribute("disableList", users);
@@ -96,11 +96,11 @@ public class AdminServlet extends HttpServlet {
 			{
 				Collection<User> userList=service.viewUsersToDelete();
 				
-				ArrayList<String> users=null;
+				ArrayList<Integer> users=new ArrayList<>();
 				
 				for(User use: userList)
 				{
-					users.add(use.getUsername());
+					users.add(use.getId());
 				}
 				
 				request.setAttribute("deleteList", users);
