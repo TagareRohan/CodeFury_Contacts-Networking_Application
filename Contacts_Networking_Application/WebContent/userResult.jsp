@@ -8,5 +8,13 @@
 </head>
 <body>
 
+ $ { result }
+ 
+ <form action="UserServlet" method="post">
+	
+	<input type="hidden" name="userAction" value="backToHome">
+	<input type="submit" value="Back">
+
+</form>
 </body>
 </html>
