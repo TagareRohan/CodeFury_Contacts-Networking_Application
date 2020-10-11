@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="style.css"><link>
 <script>
 $(document).ready(function(){
   $("#inputName").on("keyup", function() {
@@ -20,45 +20,48 @@ $(document).ready(function(){
 </head>
 <body>
 
+<%! 
+	String users[] = request.getParameter("allList");
+%>
+
 <h1>Search Users</h1>
 
-<input id="inputName" type="text" placeholder="Search..">
-<br><br>
+<form action="UserServlet" method="post">
 
-<table>
-  <thead>
-  <tr>
-    <th>Firstname</th>
-  </tr>
-  </thead>
-  <tbody id="userTable">
-  <tr>
-    <td>John</td>
-    <td><a href="#" >Send Request</a></td>
-  </tr>
-  <tr>
-    <td>Mary</td>
-    <td><a href="#" >Send Request</a></td>
-  </tr>
-  <tr>
-    <td>July</td>
-    <td><a href="#" >Send Request</a></td>
-  </tr>
-  <tr>
-    <td>Anja</td>
-    <td><a href="#" >Send Request</a></td>
-  </tr>
-  </tbody>
-</table>
-<br>
-<hr>
-<a href="userHome.jsp">Back To Home</a>
-=======
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
 
->>>>>>> branch 'rohan_branch' of https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application.git
+	<input type="text" name="" placeholder="Search..">
+	<input type="submit" name="userAction" value="searchUser">
+	
+	
+<!-- 	<input id="inputName" type="text" placeholder="Search.."> -->
+<!-- 	<br><br> -->
+<!-- 	<hr> -->
+	
+<!-- 	<table> -->
+<!-- 	  <thead> -->
+<!-- 	  <tr> -->
+<!-- 	    <th></th> -->
+<!-- 	  </tr> -->
+<!-- 	  </thead> -->
+	  
+<!-- 	  <tbody id="userTable"> -->
+<%-- 	  <% for(String eachUser:users){ %> --%>
+<!-- 	  <tr> -->
+<%-- 	  	<td><img src="test.jpg" alt="<%= eachUser %>" width="10" height="10"></td> --%>
+<%-- 	    <td><%= eachUser %></td> --%>
+<!-- 	    <td><input type="submit" value="Send Request" name="userAction" ></td> -->
+<!-- 	  </tr> -->
+<%-- 	  <% } %> --%>
+	  
+<!-- 	</tbody> -->
+<!-- 	</table> -->
+	
+<!-- 	<br> -->
+<!-- 	<hr> -->
+	
+	<!-- <a href="userHome.jsp" style="text-align: right;">Back To Home</a> -->
+
+</form>
+
 </body>
 </html>
