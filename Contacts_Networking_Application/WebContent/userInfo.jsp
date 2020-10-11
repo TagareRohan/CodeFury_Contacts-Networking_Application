@@ -23,7 +23,7 @@ $(document).ready(function(){
 </head>
 <body>
 
-<%! String userNames = request.getParameter("users"); %>
+<h1>User Found..</h1>
 
 <table>
 	  <thead>
@@ -33,13 +33,13 @@ $(document).ready(function(){
 	  </thead>
 	  
 	  <tbody id="userTable">
-	  <% for(String eachUser:users){ %>
+	  
 	  <tr>
-	  	<td><img src="user.jpg" alt="<%= eachUser %>" width="10" height="10"></td>
-	    <td><%= eachUser %></td>
-	    <td><input type="submit" value="Send Request" name="userAction" ></td>
+	  	<td><img src="${ userInfo.image }" alt="${ userInfo.name }" width="10" height="10"></td>
+	    <td>${ userInfo.name }</td>
+	    <td><button type="submit" value="sendRequest" name="sendRequest" >Send Request</button></td>
 	  </tr>
-	  <% } %>
+	
 	  
 	</tbody>
 	</table>
