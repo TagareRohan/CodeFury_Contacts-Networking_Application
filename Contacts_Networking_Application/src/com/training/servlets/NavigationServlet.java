@@ -39,6 +39,24 @@ public class NavigationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+	
+		String input=request.getParameter("submit");
+			
+		if(input.equals("adminLogin"))
+		{
+			dispatcher=request.getRequestDispatcher("adminLogin.jsp");
+			dispatcher.forward(request,response);
+		}
+		else if(input.equals("userSignup"))
+		{
+			dispatcher=request.getRequestDispatcher("userSignup.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(input.equals("userLogin"))
+		{
+			dispatcher=request.getRequestDispatcher("userLogin.jsp");
+		}
+	
 	}
 
 	/**
@@ -46,21 +64,6 @@ public class NavigationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		String input=request.getParameter("submit");
-		
-		if(input.equals("adminLogin"))
-		{
-			dispatcher=request.getRequestDispatcher("adminLogin.jsp");
-		}
-		else if(input.equals("userSignup"))
-		{
-			dispatcher=request.getRequestDispatcher("userSignup.jsp");
-		}
-		else if(input.equals("userLogin"))
-		{
-			dispatcher=request.getRequestDispatcher("userLogin.jsp");
-		}
 		
 		String login=request.getParameter("submit");
 		
@@ -137,22 +140,10 @@ public class NavigationServlet extends HttpServlet {
 			}
 			
 		}
+				
 		
-		String logout=request.getParameter("logout");
 		
-		if(logout.equals("userLogout"))
-		{
-			session.invalidate();
-			dispatcher=request.getRequestDispatcher("index.html");
-			dispatcher.forward(request, response);
-		}
 		
-		if(logout.equals("adminLogout"))
-		{
-			session.invalidate();
-			dispatcher=request.getRequestDispatcher("index.html");
-			dispatcher.forward(request, response);
-		}
 		
 		//doGet(request, response);
 	}

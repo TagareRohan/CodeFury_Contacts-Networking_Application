@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.training.models.User;
 import com.training.services.AdminDaoImpl;
@@ -25,6 +26,7 @@ public class AdminServlet extends HttpServlet {
 	AdminDaoImpl service;
 	RequestDispatcher dispatcher;
 	VerificationService verify;
+	HttpSession session;
 
     /**
      * Default constructor. 
@@ -40,6 +42,75 @@ public class AdminServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+	
+		String adminAction=request.getParameter("adminAction");
+		
+		if(request.getSession(false)==null)
+		{
+			dispatcher=request.getRequestDispatcher("index.html");
+			dispatcher.forward(request, response);
+		}
+		else
+		{
+			if(adminAction.equals("adminLogout"))
+			{
+				session.invalidate();
+				dispatcher=request.getRequestDispatcher("index.html");
+				dispatcher.forward(request, response);
+			}
+			
+			else if(adminAction.equals("backToHome"))
+			{
+				dispatcher=request.getRequestDispatcher("adminHome.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			else if(adminAction.equals("showSummary"))
+			{
+				Collection<User> allUsers=service.showSummary();
+				
+				request.setAttribute("summary", allUsers);
+				
+				dispatcher=request.getRequestDispatcher("showSummary.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			else if(adminAction.equals("disableUser"))
+			{
+				Collection<User> userList=service.viewUsersToDisable();
+				
+				ArrayList<String> users=null;
+				
+				for(User use: userList)
+				{
+					users.add(use.getUsername());
+				}
+				
+				request.setAttribute("disableList", users);
+				
+				dispatcher=request.getRequestDispatcher("disableUser.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			else if(adminAction.equals("deleteUser"))
+			{
+				Collection<User> userList=service.viewUsersToDelete();
+				
+				ArrayList<String> users=null;
+				
+				for(User use: userList)
+				{
+					users.add(use.getUsername());
+				}
+				
+				request.setAttribute("deleteList", users);
+				
+				dispatcher=request.getRequestDispatcher("deleteUser.jsp");
+				dispatcher.forward(request, response);
+			}
+		}
+		
+	
 	}
 
 	/**
@@ -59,50 +130,8 @@ public class AdminServlet extends HttpServlet {
 		}
 		else
 		{
-			if(adminAction.equals("showSummary"))
-			{
-				Collection<User> allUsers=service.showSummary();
 				
-				request.setAttribute("summary", allUsers);
-				
-				dispatcher=request.getRequestDispatcher("showSummary.jsp");
-				dispatcher.forward(request, response);
-			}
-			else if(adminAction.equals("disableUser"))
-			{
-				Collection<User> userList=service.viewUsersToDisable();
-				
-				ArrayList<String> users=null;
-				
-				for(User use: userList)
-				{
-					users.add(use.getUsername());
-				}
-				
-				request.setAttribute("disableList", users);
-				
-				dispatcher=request.getRequestDispatcher("disableUser.jsp");
-				dispatcher.forward(request, response);
-			}
-			else if(adminAction.equals("deleteUser"))
-			{
-				Collection<User> userList=service.viewUsersToDelete();
-				
-				ArrayList<String> users=null;
-				
-				for(User use: userList)
-				{
-					users.add(use.getUsername());
-				}
-				
-				request.setAttribute("deleteList", users);
-				
-				dispatcher=request.getRequestDispatcher("deleteUser.jsp");
-				dispatcher.forward(request, response);
-			}
-			
-			
-			if(request.getParameter("deleteUsers").equals("deleteUsers"))
+			if(adminAction.equals("deleteUsers"))
 			{
 				String[] userList=request.getParameterValues("deleteList");
 				
@@ -121,9 +150,10 @@ public class AdminServlet extends HttpServlet {
 				
 				request.setAttribute("status", "operation successful");
 				dispatcher=request.getRequestDispatcher("adminResult.jsp");
-				dispatcher.forward(request, response);			}
+				dispatcher.forward(request, response);			
+			}
 			
-			if(request.getParameter("disableUsers").equals("disableUsers"))
+			if(adminAction.equals("disableUsers"))
 			{
 				String[] userList=request.getParameterValues("disableList");
 				
@@ -145,11 +175,7 @@ public class AdminServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 			
-			if(request.getParameter("backToHome").equals("backToHome"))
-			{
-				dispatcher=request.getRequestDispatcher("adminHome.jsp");
-				dispatcher.forward(request, response);
-			}
+			
 		}
 		
 		

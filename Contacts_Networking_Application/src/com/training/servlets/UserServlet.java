@@ -45,6 +45,80 @@ public class UserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		String userAction=request.getParameter("userAction");
+		
+		if(request.getSession(false)==null)
+		{
+			dispatcher=request.getRequestDispatcher("index.html");
+			dispatcher.forward(request, response);
+		}
+		else
+		{
+			if(userAction.equals("addNewContact"))
+			{
+				dispatcher=request.getRequestDispatcher("addNewContact.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			else if(userAction.equals("viewFriendRequests"))
+			{
+				Collection<User> friendRequests=service.viewFriendRequests((Integer)session.getAttribute("sessionId"));
+				
+				request.setAttribute("friendRequests", friendRequests);
+				
+				dispatcher=request.getRequestDispatcher("viewFriendRequests.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			else if(userAction.equals("searchUser"))
+			{
+				dispatcher=request.getRequestDispatcher("searchUser.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			else if(userAction.equals("viewBlockedList"))
+			{
+				
+				Collection<User> blockedUsers=service.viewBlockedUsers((Integer)session.getAttribute("sessionId"));
+				
+				request.setAttribute("blockedList", blockedUsers);
+				
+				dispatcher=request.getRequestDispatcher("viewBlockedList.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			else if(userAction.equals("viewFriendList"))
+			{
+				Collection<User> friendList=service.viewFriends((Integer)session.getAttribute("sessionId"));
+				
+				request.setAttribute("friendList", friendList);
+				dispatcher=request.getRequestDispatcher("viewFriendList.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			else if(userAction.equals("viewContactList"))
+			{
+				Collection<Contact> contactList=service.viewContacts((Integer)session.getAttribute("sessionId"));
+				
+				request.setAttribute("contactList",contactList);
+				dispatcher=request.getRequestDispatcher("viewContactList.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			else if(userAction.equals("backToHome"))
+			{
+				dispatcher=request.getRequestDispatcher("userHome.jsp");
+				dispatcher.forward(request, response);
+			}
+			
+			else if(userAction.equals("userLogout"))
+			{
+				session.invalidate();
+				dispatcher=request.getRequestDispatcher("index.html");
+				dispatcher.forward(request, response);
+			}
+		}
+	
 	}
 
 	/**
@@ -63,57 +137,9 @@ public class UserServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		else
-		{
+		{	
+			
 			if(userAction.equals("addNewContact"))
-			{
-				dispatcher=request.getRequestDispatcher("addNewContact.jsp");
-				dispatcher.forward(request, response);
-			}
-			else if(userAction.equals("viewFriendRequests"))
-			{
-				Collection<User> friendRequests=service.viewFriendRequests((Integer)session.getAttribute("sessionId"));
-				
-				request.setAttribute("friendRequests", friendRequests);
-				
-				dispatcher=request.getRequestDispatcher("viewFriendRequests.jsp");
-				dispatcher.forward(request, response);
-			}
-			else if(userAction.equals("searchUser"))
-			{
-				
-				dispatcher=request.getRequestDispatcher("searchUser.jsp");
-				dispatcher.forward(request, response);
-			}
-			else if(userAction.equals("viewBlockedList"))
-			{
-				
-				Collection<User> blockedUsers=service.viewBlockedUsers((Integer)session.getAttribute("sessionId"));
-				
-				request.setAttribute("blockedList", blockedUsers);
-				
-				dispatcher=request.getRequestDispatcher("viewBlockedList.jsp");
-				dispatcher.forward(request, response);
-			}
-			else if(userAction.equals("viewFriendList"))
-			{
-				Collection<User> friendList=service.viewFriends((Integer)session.getAttribute("sessionId"));
-				
-				request.setAttribute("friendList", friendList);
-				dispatcher=request.getRequestDispatcher("viewFriendList.jsp");
-				dispatcher.forward(request, response);
-			}
-			else if(userAction.equals("viewContactList"))
-			{
-				Collection<Contact> contactList=service.viewContacts((Integer)session.getAttribute("sessionId"));
-				
-				request.setAttribute("contactList",contactList);
-				dispatcher=request.getRequestDispatcher("viewContactList.jsp");
-				dispatcher.forward(request, response);
-			}
-			
-			
-			
-			if(request.getParameter("addNewContact").equals("addNewContact"))
 			{
 				String fullName=request.getParameter("fullName");
 				String email=request.getParameter("email");
@@ -137,7 +163,7 @@ public class UserServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				
 			}
-			if(request.getParameter("blockUser").equals("blockUser"))
+			if(userAction.equals("blockUser"))
 			{
 				int blockId=Integer.parseInt(request.getParameter("userId"));
 				
@@ -148,7 +174,7 @@ public class UserServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				
 			}
-			if(request.getParameter("unBlockUser").equals("unBlockUser"))
+			if(userAction.equals("unBlockUser"))
 			{
 				int blockId=Integer.parseInt(request.getParameter("userId"));
 				
@@ -159,7 +185,7 @@ public class UserServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				
 			}
-			if(request.getParameter("sendRequest").equals("sendRequest"))
+			if(userAction.equals("sendRequest"))
 			{
 				int friendId=Integer.parseInt(request.getParameter("userId"));
 				
@@ -168,7 +194,7 @@ public class UserServlet extends HttpServlet {
 				dispatcher=request.getRequestDispatcher("userResult.jsp");
 				dispatcher.forward(request, response);
 			}
-			if(request.getParameter("declineRequest").equals("declineRequest"))
+			if(userAction.equals("declineRequest"))
 			{
 				int friendId=Integer.parseInt(request.getParameter("userId"));
 				
@@ -177,7 +203,7 @@ public class UserServlet extends HttpServlet {
 				dispatcher=request.getRequestDispatcher("userResult.jsp");
 				dispatcher.forward(request, response);
 			}
-			if(request.getParameter("addFriend").equals("addFriend"))
+			if(userAction.equals("addFriend"))
 			{
 				int friendId=Integer.parseInt(request.getParameter("userId"));
 				
@@ -188,7 +214,7 @@ public class UserServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				
 			}
-			if(request.getParameter("searchUser").equals("searchUser"))
+			if(userAction.equals("searchUser"))
 			{
 				String name=request.getParameter("userName");
 				
@@ -199,11 +225,7 @@ public class UserServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 			
-			if(request.getParameter("backToHome").equals("backToHome"))
-			{
-				dispatcher=request.getRequestDispatcher("userHome.jsp");
-				dispatcher.forward(request, response);
-			}
+			
 		}
 		
 		
