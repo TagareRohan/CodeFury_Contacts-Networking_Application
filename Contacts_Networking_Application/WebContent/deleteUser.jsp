@@ -4,9 +4,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Delete Users</title>
 </head>
 <body>
+
+<form action="AdminServlet" method="post">
+
+<c:forEach items="${deleteList}" var="user">
+
+    <c:out name="deleteList" value="${user.getFullName()}"/>
+
+</c:forEach>
+
+<button type="submit" name="adminAction" value="deleteUsers">Delete</button>
+
+</form>
+
 
 </body>
 </html>
