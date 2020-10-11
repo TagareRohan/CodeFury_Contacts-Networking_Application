@@ -8,17 +8,12 @@
 </head>
 <body>
 
-<%! 
-	String user = "John";
-	String userAction = "searchUser";
-	String submit = "userLogin";
-%>
 
 <h1>Friend Requests</h1>
 
 <form action="UserServlet" method="post">
 
-	  	<p><img src="test.jpg" alt="user" width="10" height="10"><span> ${ friendList } </span> Sent a Friend Request...</p>
+	  	<p><img src="${ friendList.image }" alt="user" width="10" height="10"><span> ${ friendList.name } </span> Sent a Friend Request...</p>
 	  	<br>
 	  	<button type="submit" name="sendRequest" value="sendRequest">Accept</button>
 	  	<button type="submit" name="declineRequest" value="declineRequest">Ignore</button>
