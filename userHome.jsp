@@ -46,10 +46,12 @@ li a:hover {
             </ul>
         </div>
         	<!--<h1 style="background-color:tomato;">${fullName}</h1> -->
-        	<h1 style="background-color:tomato;">User Name</h1>
+        	<h1 style="background-color:tomato;">Hello${userName}</h1>
             <!--<img src="${profPicture}" alt="User Profile picture if present" style="width:500px;height:600px;"> -->
-            <img src="download.png" alt="User Profile picture if present" style="width:200px;height:300px;">
 </div>
     
+</form>
+<form action="NavigationServlet" method="post">
+<button name="logout" type="submit" value="userLogout">Logout</button>
 </form>
 </html>

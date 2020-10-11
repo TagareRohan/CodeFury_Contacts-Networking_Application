@@ -8,9 +8,9 @@
 </head>
 <body style="background-color:powderblue;">
 <h1 style="background-color:tomato; text-align: center;">My Friends</h1>
-<p>${viewFriendList}</p>
+<p>${friendList}</p>
 <form action="UserServlet" method="post">
-<button type="submit" name="userAction" value="back" style="background-color:tomato;">Back to Home</button>
+<button type="submit" name="userAction" value="backToHome" style="background-color:tomato;">Back to Home</button>
 </form>
 </body>
 </html>

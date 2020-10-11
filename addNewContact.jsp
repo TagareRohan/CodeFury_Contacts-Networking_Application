@@ -60,9 +60,9 @@ h1{
     <label for=fullName"><b>Full Name</b></label>
     <input type="text" placeholder="Enter full name" name="fullName" id="fullName" required>
     <label for="Email"><b>Email</b></label>
-    <input type="email" placeholder="Enter email" name="Email" id="Email" required>
+    <input type="email" placeholder="Enter email" name="email" id="email" required>
     <label for="PhoneNum"><b>Phone Number</b></label>
-    <input type="tel" placeholder="Enter Phone Number" name="phoneNum" id="phoneNum">
+    <input type="tel" placeholder="Enter Phone Number" name="phoneNumber" id="phoneNumber">
     <div>
 	    <p><b>Gender</b></p>
 	    <label for="male">Male</label>
@@ -87,8 +87,8 @@ h1{
   	
     <label for="company"><b>Company</b></label>
     <input type="text" placeholder="Enter Company" name="company" id="company" required>
-     <label for="profPicture"><b>Upload image:</b></label><br>
-  		<input type="file" id="profPicture" name="profPicture" accept="image/*">
+     <label for="image"><b>Upload image:</b></label><br>
+  		<input type="file" id="image" name="image" accept="image/*">
  		
     <hr>
     <button type="submit" name="userAction" value="addNewContact">Add Contact</button>
