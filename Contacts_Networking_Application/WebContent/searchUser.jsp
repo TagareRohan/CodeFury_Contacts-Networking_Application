@@ -20,16 +20,12 @@ $(document).ready(function(){
 </head>
 <body>
 
-<%! 
-	String users[] = request.getParameter("allList");
-%>
-
 <h1>Search Users</h1>
 
 <form action="UserServlet" method="post">
 
 
-	<input type="text" name="" placeholder="Search..">
+	<input type="text" name="userName" placeholder="Search..">
 	<input type="submit" name="userAction" value="searchUser">
 	
 	
