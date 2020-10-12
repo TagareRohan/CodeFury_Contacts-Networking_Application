@@ -7,7 +7,7 @@
  - Package : com.training.services --> File : VerificationService.java --> line 90 [Link to line](https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application/blob/8a49dc9342d1c443106b6f216e24261d1874286b/Networking_Application/src/com/training/services/VerificationService.java#L90)  --> Enter absolute location of Profile.png to FileInputStream.
 
 #### Required Libraries (as jar files)
-** To be added to tomact lib directory or added as a buil dependency through eclipse: **
+**To be added to tomact lib directory or added as a buil dependency through eclipse:**
 - derby jar files --> derby.jar and derbyclient.jar
 - Javascript tag library --> jstl.jar
 
