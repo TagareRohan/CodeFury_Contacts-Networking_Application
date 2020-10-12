@@ -1,9 +1,9 @@
 # CodeFury_Contacts-Networking_Application
 
 * Setup Required:
-> Package : com.training.utils --> File : CoonectionUtility.java --> line 15 --> Change DB location to your preffered location.
-> Package : com.training.utils --> File : AdminParser.java --> line 27 --> Enter absolute location of Admins.xml to parse method.
-> Package : com.training.services --> File : UserDaoImpl.java --> line 53 --> Enter absolute location of Profile.png to FileInputStream.
+> Package : com.training.utils --> File : CoonectionUtility.java --> line 15 --> Change DB location to your preffered location. \n
+> Package : com.training.utils --> File : AdminParser.java --> line 27 --> Enter absolute location of Admins.xml to parse method. \n
+> Package : com.training.services --> File : UserDaoImpl.java --> line 53 --> Enter absolute location of Profile.png to FileInputStream. \n
 > Package : com.training.services --> File : VerificationService.java --> line 90 --> Enter absolute location of Profile.png to FileInputStream.
 
 
