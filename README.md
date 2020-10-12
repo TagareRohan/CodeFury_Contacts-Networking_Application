@@ -6,6 +6,11 @@
  - Package : com.training.services --> File : UserDaoImpl.java --> line 53 [Link to line](https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application/blob/d32b423671aad73023dd9b2222436cb1a82281cf/Networking_Application/src/com/training/services/UserDaoImpl.java#L53)  --> Enter absolute location of Profile.png to FileInputStream.
  - Package : com.training.services --> File : VerificationService.java --> line 90 [Link to line](https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application/blob/8a49dc9342d1c443106b6f216e24261d1874286b/Networking_Application/src/com/training/services/VerificationService.java#L90)  --> Enter absolute location of Profile.png to FileInputStream.
 
+#### Required Libraries (as jar files)
+* To be added to tomact lib directory or added as a buil dependency through eclipse: *
+- derby jar files --> derby.jar and derbyclient.jar
+- Javascript tag library --> jstl.jar
+
 ### Users table create query:
 > create table users(id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,fullName varchar(100),email varchar(100),phonenumber bigint,gender varchar(10),dateofbirth date,address varchar(100),city varchar(40),state varchar(40),country varchar(40),company varchar(50),image blob(102400),username varchar(50),password varchar(50));
 
