@@ -1,9 +1,9 @@
 # CodeFury_Contacts-Networking_Application
 
 ### Setup Required
- - Package : com.training.utils --> File : CoonectionUtility.java --> line 15 --> Change DB location to your preffered location.
- - Package : com.training.utils --> File : AdminParser.java --> line 27 --> Enter absolute location of Admins.xml to parse method.
- - Package : com.training.services --> File : UserDaoImpl.java --> line 53 --> Enter absolute location of Profile.png to FileInputStream.
+ - Package : com.training.utils --> File : CoonectionUtility.java --> line 15 [Link to line](https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application/blob/d32b423671aad73023dd9b2222436cb1a82281cf/Networking_Application/src/com/training/utils/ConnectionUtility.java#L15)  --> Change DB location to your preffered location.
+ - Package : com.training.utils --> File : AdminParser.java --> line 27 [Link to line](https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application/blob/d32b423671aad73023dd9b2222436cb1a82281cf/Networking_Application/src/com/training/utils/AdminParser.java#L27)  --> Enter absolute location of Admins.xml to parse method.
+ - Package : com.training.services --> File : UserDaoImpl.java --> line 53 [Link to line](https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application/blob/d32b423671aad73023dd9b2222436cb1a82281cf/Networking_Application/src/com/training/services/UserDaoImpl.java#L53)  --> Enter absolute location of Profile.png to FileInputStream.
  - Package : com.training.services --> File : VerificationService.java --> line 90 [Link to line](https://github.com/TagareRohan/CodeFury_Contacts-Networking_Application/blob/8a49dc9342d1c443106b6f216e24261d1874286b/Networking_Application/src/com/training/services/VerificationService.java#L90)  --> Enter absolute location of Profile.png to FileInputStream.
 
 ### Users table create query:
