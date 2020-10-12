@@ -1,5 +1,16 @@
 # CodeFury_Contacts-Networking_Application
 
+* Setup Required:
+> Package : com.training.utils --> File : CoonectionUtility.java --> line 15 --> Change DB location to your preffered location.
+> Package : com.training.utils --> File : AdminParser.java --> line 27 --> Enter absolute location of Admins.xml to parse method.
+> Package : com.training.services --> File : UserDaoImpl.java --> line 53 --> Enter absolute location of Profile.png to FileInputStream.
+> Package : com.training.services --> File : VerificationService.java --> line 90 --> Enter absolute location of Profile.png to FileInputStream.
+
+
+
+
+
+
 * Users table create query:
 > create table users(id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,fullName varchar(100),email varchar(100),phonenumber bigint,gender varchar(10),dateofbirth date,address varchar(100),city varchar(40),state varchar(40),country varchar(40),company varchar(50),image blob(102400),username varchar(50),password varchar(50));
 
